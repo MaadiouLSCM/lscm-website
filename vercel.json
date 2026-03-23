@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "name": "lscm-website",
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "lscm_hero.mp4", "use": "@vercel/static" }
+  ]
+}

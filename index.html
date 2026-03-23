@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LSCM Ltd — 5PL Logistics | Africa & Beyond</title>
+<meta name="description" content="LSCM is a 5PL supply chain management company specialising in large-scale EPC and energy sector logistics across West Africa, the Middle East and beyond. From planning till last mile.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0B0E;
+    --surface: #111318;
+    --surface2: #181C23;
+    --gold: #F5A800;
+    --gold-dim: rgba(245,168,0,0.1);
+    --gold-border: rgba(245,168,0,0.22);
+    --text: #E8E8E0;
+    --muted: #6B7280;
+    --white: #FFFFFF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ── CURSOR ── */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(245,168,0,0.45);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transition: all 0.15s ease;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 1.5rem 5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(10,11,14,0.94);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--gold-border);
+    padding: 1rem 5rem;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+  .logo-mark {
+    width: 38px; height: 38px;
+    background: var(--gold);
+    clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.7rem;
+    color: #000; letter-spacing: 0.05em;
+  }
+  .logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--white); letter-spacing: 0.08em; }
+  .logo-text span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.3s; cursor: none; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: transparent; border: 1px solid var(--gold-border);
+    color: var(--gold); padding: 0.55rem 1.4rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.82rem; letter-spacing: 0.06em;
+    cursor: none; transition: all 0.3s; text-decoration: none; text-transform: uppercase;
+  }
+  .nav-cta:hover { background: var(--gold); color: #000; }
+
+  /* ── HERO WITH VIDEO ── */
+  .hero {
+    min-height: 100vh; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-video-wrap {
+    position: absolute; inset: 0; z-index: 0;
+  }
+  .hero-video-wrap video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(0.35) saturate(0.8);
+  }
+  .hero-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      linear-gradient(to bottom, rgba(10,11,14,0.5) 0%, rgba(10,11,14,0.15) 40%, rgba(10,11,14,0.7) 100%),
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(245,168,0,0.08) 0%, transparent 70%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 1;
+    background-image: linear-gradient(rgba(245,168,0,0.03) 1px,transparent 1px), linear-gradient(90deg,rgba(245,168,0,0.03) 1px,transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at 50% 50%, black 20%, transparent 75%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center; padding: 0 2rem; max-width: 1050px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(245,168,0,0.12); border: 1px solid var(--gold-border);
+    padding: 0.4rem 1rem;
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em;
+    color: var(--gold); text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 1s 0.2s both;
+  }
+  .badge-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 8.5rem);
+    font-weight: 800; line-height: 0.92; letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+    animation: fadeUp 1s 0.4s both;
+  }
+  .hero-title .line { display: block; }
+  .hero-title .gold { color: var(--gold); }
+  .hero-title .outline { -webkit-text-stroke: 1px rgba(245,168,0,0.5); color: transparent; }
+  .hero-sub {
+    font-size: 1.1rem; color: rgba(232,232,224,0.8);
+    max-width: 560px; margin: 0 auto 3rem;
+    line-height: 1.75; font-weight: 300;
+    animation: fadeUp 1s 0.6s both;
+  }
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: fadeUp 1s 0.8s both; }
+  .btn-primary {
+    background: var(--gold); color: #000;
+    padding: 0.9rem 2.4rem;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
+    text-decoration: none; text-transform: uppercase; transition: all 0.3s; cursor: none;
+  }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.08); color: var(--text);
+    padding: 0.9rem 2.4rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em;
+    text-decoration: none; border: 1px solid rgba(255,255,255,0.15); text-transform: uppercase;
+    transition: all 0.3s; cursor: none; backdrop-filter: blur(8px);
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); background: rgba(245,168,0,0.05); }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    animation: fadeUp 1s 1.2s both; z-index: 2;
+  }
+  .scroll-line {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollDrop 2.2s infinite;
+  }
+  @keyframes scrollDrop {
+    0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top}
+    51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom}
+  }
+  .scroll-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ── TICKER ── */
+  .ticker-wrap { background: var(--gold); padding: 0.75rem 0; overflow: hidden; }
+  .ticker { display: flex; animation: ticker 30s linear infinite; white-space: nowrap; }
+  .ticker-item {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.75rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: #000;
+    padding: 0 2.5rem; display: flex; align-items: center; gap: 1rem;
+  }
+  .ticker-item::after { content: '◆'; font-size: 0.45rem; opacity: 0.4; }
+  @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ── SHARED LAYOUT ── */
+  .section-wrap { max-width: 1320px; margin: 0 auto; }
+  .section-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: clamp(2rem,4vw,2.8rem); font-weight: 800; line-height: 1.1; }
+  .section-title em { color: var(--gold); font-style: normal; }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+
+  /* ── STATS ── */
+  .stats-section { padding: 7rem 5rem; }
+  .stats-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: center; }
+  .stats-heading { font-family: 'Syne', sans-serif; font-size: clamp(2rem,4vw,3rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; }
+  .stats-heading em { color: var(--gold); font-style: normal; }
+  .stats-para { color: var(--muted); line-height: 1.85; font-size: 0.93rem; margin-bottom: 1.2rem; }
+  .stats-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--gold); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; transition: gap 0.3s; cursor: none; margin-top: 0.8rem; }
+  .stats-link:hover { gap: 1rem; }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--gold-border); }
+  .stat-card { background: var(--surface); padding: 2.75rem 2rem; transition: background 0.3s; }
+  .stat-card:hover { background: var(--surface2); }
+  .stat-number { font-family: 'Syne', sans-serif; font-size: 3.2rem; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 0.6rem; }
+  .stat-label { font-size: 0.82rem; color: var(--muted); letter-spacing: 0.04em; line-height: 1.55; }
+
+  /* ── PRESENCE / MAP ── */
+  .presence-section { padding: 7rem 5rem; background: var(--surface); }
+  .world-visual {
+    margin-top: 4rem; position: relative;
+    background: var(--bg); border: 1px solid var(--gold-border);
+    padding: 2rem; overflow: hidden;
+  }
+  .world-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 60%, rgba(245,168,0,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .globe-label {
+    font-family: 'DM Mono', monospace; font-size: 0.62rem;
+    letter-spacing: 0.12em; color: var(--gold); text-transform: uppercase;
+    margin-bottom: 1rem; text-align: center; opacity: 0.7;
+  }
+  /* SVG-based map */
+  .map-svg { width: 100%; height: auto; display: block; }
+  .country-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 1.5px; margin-top: 1.5px; background: var(--gold-border);
+  }
+  .country-card { background: var(--bg); padding: 1.75rem 1.25rem; text-align: center; transition: background 0.3s; cursor: none; }
+  .country-card:hover { background: var(--surface); }
+  .country-flag { font-size: 2.2rem; margin-bottom: 0.6rem; display: block; }
+  .country-name { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .country-role { font-size: 0.65rem; color: var(--muted); margin-top: 0.25rem; font-family: 'DM Mono', monospace; }
+
+  /* ── SERVICES ── */
+  .services-section { padding: 7rem 5rem; position: relative; overflow: hidden; }
+  .services-section::before {
+    content: 'LSCM'; position: absolute; right: -3rem; top: 50%; transform: translateY(-50%);
+    font-family: 'Syne', sans-serif; font-size: 22rem; font-weight: 800;
+    color: rgba(245,168,0,0.025); line-height: 1; pointer-events: none; user-select: none;
+  }
+  .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; margin-top: 4rem; background: var(--gold-border); }
+  .service-card {
+    background: var(--surface); padding: 3rem 2.5rem; position: relative; overflow: hidden;
+    transition: background 0.4s; cursor: none;
+  }
+  .service-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: var(--gold);
+    transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
+  }
+  .service-card:hover::after { transform: scaleX(1); }
+  .service-card:hover { background: var(--surface2); }
+  .service-icon { width: 50px; height: 50px; background: var(--gold-dim); border: 1px solid var(--gold-border); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 2rem; }
+  .service-num { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 0.8rem; text-transform: uppercase; }
+  .service-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.9rem; line-height: 1.2; }
+  .service-desc { color: var(--muted); font-size: 0.87rem; line-height: 1.8; }
+
+  /* ── CLIENTS ── */
+  .clients-section { padding: 7rem 5rem; background: var(--surface); }
+  .clients-logos { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5px; margin-top: 4rem; background: var(--gold-border); }
+  .client-card { background: var(--bg); padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; gap: 0.9rem; transition: background 0.3s; cursor: none; }
+  .client-card:hover { background: var(--surface2); }
+  .client-logo-text { font-family: 'Syne', sans-serif; font-size: 1.65rem; font-weight: 800; letter-spacing: 0.06em; color: rgba(255,255,255,0.12); transition: color 0.3s; }
+  .client-card:hover .client-logo-text { color: var(--gold); }
+  .client-sector { font-family: 'DM Mono', monospace; font-size: 0.64rem; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; text-align: center; }
+
+  /* ── TEAM ── */
+  .team-section { padding: 7rem 5rem; }
+  .human-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; margin-top: 4rem; background: var(--gold-border); }
+  .human-card { background: var(--surface); padding: 3rem 2.5rem; transition: background 0.3s; cursor: none; }
+  .human-card:hover { background: var(--surface2); }
+  .human-quote { font-family: 'Syne', sans-serif; font-size: 3.5rem; color: var(--gold); line-height: 1; margin-bottom: 1.5rem; opacity: 0.35; }
+  .human-text { font-size: 0.93rem; line-height: 1.85; color: rgba(232,232,224,0.85); margin-bottom: 2rem; font-style: italic; font-weight: 300; }
+  .human-person { display: flex; align-items: center; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); }
+  .human-avatar { width: 44px; height: 44px; background: var(--gold-dim); border: 1px solid var(--gold-border); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.88rem; color: var(--gold); flex-shrink: 0; }
+  .human-name { font-family: 'Syne', sans-serif; font-size: 0.82rem; font-weight: 700; }
+  .human-role { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.05em; color: var(--muted); text-transform: uppercase; margin-top: 0.2rem; }
+
+  /* ── LINKEDIN FEED ── */
+  .linkedin-section { padding: 7rem 5rem; background: var(--surface); }
+  .linkedin-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .li-feed { display: flex; flex-direction: column; gap: 1px; background: var(--gold-border); }
+  .li-post { background: var(--bg); padding: 1.75rem 1.75rem; border-left: 3px solid transparent; transition: border-color 0.3s, background 0.3s; cursor: none; }
+  .li-post:hover { border-left-color: var(--gold); background: var(--surface2); }
+  .li-post-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.9rem; }
+  .li-avatar { width: 32px; height: 32px; background: var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.7rem; color: #000; flex-shrink: 0; }
+  .li-poster { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; }
+  .li-time { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); margin-left: auto; }
+  .li-post-text { font-size: 0.84rem; color: var(--muted); line-height: 1.7; }
+  .li-post-tag { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--gold); margin-top: 0.75rem; letter-spacing: 0.06em; }
+  .linkedin-copy .section-tag { text-align: left; }
+  .linkedin-heading { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem,3vw,2.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; }
+  .linkedin-heading em { color: var(--gold); font-style: normal; }
+  .linkedin-para { color: var(--muted); line-height: 1.85; font-size: 0.9rem; margin-bottom: 2rem; }
+
+  /* ── CTA BANNER ── */
+  .cta-section { padding: 0 5rem 7rem; }
+  .cta-banner {
+    background: var(--gold); padding: 5rem 6rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+    position: relative; overflow: hidden;
+  }
+  .cta-banner::before {
+    content: '5PL'; position: absolute; right: 1rem;
+    font-family: 'Syne', sans-serif; font-size: 14rem; font-weight: 800;
+    color: rgba(0,0,0,0.06); line-height: 1; pointer-events: none; user-select: none;
+  }
+  .cta-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; color: rgba(0,0,0,0.45); text-transform: uppercase; margin-bottom: 0.6rem; }
+  .cta-heading { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem,3.5vw,3rem); font-weight: 800; color: #000; line-height: 1.05; }
+  .cta-actions { display: flex; gap: 1rem; flex-shrink: 0; }
+  .btn-dark { background: #000; color: var(--gold); padding: 0.9rem 2.2rem; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase; transition: all 0.3s; cursor: none; }
+  .btn-dark:hover { background: #111; transform: translateY(-2px); }
+  .btn-outline-dark { background: transparent; color: #000; padding: 0.9rem 2.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; text-decoration: none; border: 2px solid rgba(0,0,0,0.2); text-transform: uppercase; transition: all 0.3s; cursor: none; }
+  .btn-outline-dark:hover { border-color: #000; background: rgba(0,0,0,0.06); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--surface); border-top: 1px solid var(--gold-border); padding: 5rem 5rem 2.5rem; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+  .footer-logo { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+  .footer-tagline { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+  .footer-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.85; max-width: 290px; }
+  .footer-col h4 { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.5rem; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 0.75rem; }
+  .footer-col ul a { font-size: 0.84rem; color: var(--muted); text-decoration: none; transition: color 0.3s; cursor: none; }
+  .footer-col ul a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--muted); letter-spacing: 0.04em; }
+  .footer-li { display: flex; align-items: center; gap: 0.5rem; color: var(--gold); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--gold-border); padding: 0.4rem 1rem; transition: all 0.3s; cursor: none; }
+  .footer-li:hover { background: var(--gold); color: #000; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    nav,nav.scrolled { padding-left: 2rem; padding-right: 2rem; }
+    .nav-links { display: none; }
+    .stats-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .clients-logos { grid-template-columns: 1fr 1fr; }
+    .human-grid { grid-template-columns: 1fr 1fr; }
+    .linkedin-inner { grid-template-columns: 1fr; }
+    .country-grid { grid-template-columns: repeat(3,1fr); }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .cta-banner { flex-direction: column; text-align: center; padding: 3.5rem 3rem; }
+    .cta-actions { justify-content: center; }
+    .stats-section,.presence-section,.services-section,.clients-section,.team-section,.linkedin-section,.cta-section,footer { padding-left: 2rem; padding-right: 2rem; }
+  }
+  @media (max-width: 640px) {
+    .services-grid,.human-grid { grid-template-columns: 1fr; }
+    .country-grid { grid-template-columns: repeat(2,1fr); }
+    .footer-top { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .hero-title { font-size: clamp(2.8rem,12vw,5rem); }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="logo-mark">LC</div>
+    <span class="logo-text">LSC<span>M</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#presence">Presence</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://www.linkedin.com/company/lcsm-logistic/" target="_blank" class="nav-cta">LinkedIn ↗</a>
+</nav>
+
+<!-- HERO WITH VIDEO -->
+<section class="hero">
+  <div class="hero-video-wrap">
+    <video autoplay muted loop playsinline preload="auto" id="heroVideo">
+      <source src="lscm_hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      5PL Provider &nbsp;·&nbsp; Active Across 10 Countries
+    </div>
+    <h1 class="hero-title">
+      <span class="line">From</span>
+      <span class="line gold">Planning</span>
+      <span class="line outline">Till Last Mile</span>
+    </h1>
+    <p class="hero-sub">
+      LSCM specialises in large-scale EPC &amp; energy supply chains where logistics failures have real consequences — and solutions must be built from within.
+    </p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Our Expertise</a>
+      <a href="https://www.linkedin.com/company/lcsm-logistic/" target="_blank" class="btn-ghost">Follow on LinkedIn ↗</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span class="scroll-label">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker">
+    <span class="ticker-item">Nigeria</span><span class="ticker-item">Senegal</span><span class="ticker-item">Ivory Coast</span><span class="ticker-item">Mauritania</span><span class="ticker-item">Guinea</span><span class="ticker-item">Dubai UAE</span><span class="ticker-item">France</span><span class="ticker-item">South Korea</span><span class="ticker-item">United Kingdom</span><span class="ticker-item">Oil &amp; Gas</span><span class="ticker-item">Project Cargo</span><span class="ticker-item">Customs Clearance</span><span class="ticker-item">EPC Logistics</span><span class="ticker-item">From Planning Till Last Mile</span>
+    <span class="ticker-item">Nigeria</span><span class="ticker-item">Senegal</span><span class="ticker-item">Ivory Coast</span><span class="ticker-item">Mauritania</span><span class="ticker-item">Guinea</span><span class="ticker-item">Dubai UAE</span><span class="ticker-item">France</span><span class="ticker-item">South Korea</span><span class="ticker-item">United Kingdom</span><span class="ticker-item">Oil &amp; Gas</span><span class="ticker-item">Project Cargo</span><span class="ticker-item">Customs Clearance</span><span class="ticker-item">EPC Logistics</span><span class="ticker-item">From Planning Till Last Mile</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="section-wrap">
+    <div class="stats-inner">
+      <div class="reveal">
+        <div class="section-tag">// Who We Are</div>
+        <h2 class="stats-heading">Africa's critical <em>logistics backbone</em> for major energy projects</h2>
+        <p class="stats-para">With nearly two decades of boots-on-the-ground experience, LSCM brings together senior and operational managers who have delivered on the most demanding projects — from deep-water oil fields off Nigeria to remote EPC construction sites in Mauritania.</p>
+        <p class="stats-para">Our edge is local. We believe the best logistics solutions are built from within — not imposed from outside. Every country we operate in, we are genuinely present with local teams, local expertise and international standards.</p>
+        <a href="https://www.linkedin.com/company/lcsm-logistic/" target="_blank" class="stats-link">Read our story on LinkedIn →</a>
+      </div>
+      <div class="stats-grid reveal d2">
+        <div class="stat-card"><div class="stat-number" data-target="20" data-suffix="+">0</div><div class="stat-label">Years of expertise in West African logistics</div></div>
+        <div class="stat-card"><div class="stat-number" data-target="10" data-suffix="+">0</div><div class="stat-label">Countries with active operations &amp; local teams</div></div>
+        <div class="stat-card"><div class="stat-number" data-target="4" data-suffix=" Majors">0</div><div class="stat-label">Energy majors served: Shell, Agip, Total &amp; more</div></div>
+        <div class="stat-card"><div class="stat-number" data-target="5" data-suffix="PL">0</div><div class="stat-label">Service level — from planning till last mile</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESENCE -->
+<section class="presence-section" id="presence">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">// Global Presence</div>
+      <h2 class="section-title">We don't just ship <em>there.</em><br>We operate <em>from there.</em></h2>
+    </div>
+    <div class="world-visual reveal d1">
+      <div class="globe-label">◆ LSCM International Network — 10 Active Countries</div>
+      <!-- Decorative world grid SVG -->
+      <svg class="map-svg" viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg" style="opacity:0.08;margin-bottom:0">
+        <!-- Latitude lines -->
+        <line x1="0" y1="100" x2="1200" y2="100" stroke="#F5A800" stroke-width="0.5"/>
+        <line x1="0" y1="200" x2="1200" y2="200" stroke="#F5A800" stroke-width="0.5"/>
+        <line x1="0" y1="250" x2="1200" y2="250" stroke="#F5A800" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="0" y1="300" x2="1200" y2="300" stroke="#F5A800" stroke-width="0.5"/>
+        <line x1="0" y1="400" x2="1200" y2="400" stroke="#F5A800" stroke-width="0.5"/>
+        <!-- Longitude lines -->
+        <line x1="200" y1="0" x2="200" y2="500" stroke="#F5A800" stroke-width="0.5"/>
+        <line x1="400" y1="0" x2="400" y2="500" stroke="#F5A800" stroke-width="0.5"/>
+        <line x1="600" y1="0" x2="600" y2="500" stroke="#F5A800" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="800" y1="0" x2="800" y2="500" stroke="#F5A800" stroke-width="0.5"/>
+        <line x1="1000" y1="0" x2="1000" y2="500" stroke="#F5A800" stroke-width="0.5"/>
+      </svg>
+    </div>
+    <div class="country-grid reveal d2">
+      <div class="country-card"><span class="country-flag">🇳🇬</span><div class="country-name">Nigeria</div><div class="country-role">HQ · Oil &amp; Gas</div></div>
+      <div class="country-card"><span class="country-flag">🇸🇳</span><div class="country-name">Senegal</div><div class="country-role">West Africa Ops</div></div>
+      <div class="country-card"><span class="country-flag">🇨🇮</span><div class="country-name">Ivory Coast</div><div class="country-role">Energy Logistics</div></div>
+      <div class="country-card"><span class="country-flag">🇲🇷</span><div class="country-name">Mauritania</div><div class="country-role">Offshore &amp; Mining</div></div>
+      <div class="country-card"><span class="country-flag">🇬🇳</span><div class="country-name">Guinea</div><div class="country-role">Mining Logistics</div></div>
+      <div class="country-card"><span class="country-flag">🇦🇪</span><div class="country-name">Dubai UAE</div><div class="country-role">Middle East Hub</div></div>
+      <div class="country-card"><span class="country-flag">🇫🇷</span><div class="country-name">France</div><div class="country-role">Europe Gateway</div></div>
+      <div class="country-card"><span class="country-flag">🇰🇷</span><div class="country-name">South Korea</div><div class="country-role">EPC Procurement</div></div>
+      <div class="country-card"><span class="country-flag">🇬🇧</span><div class="country-name">United Kingdom</div><div class="country-role">Global Coordination</div></div>
+      <div class="country-card"><span class="country-flag">🇺🇸</span><div class="country-name">United States</div><div class="country-role">Americas Desk</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">// What We Do</div>
+      <h2 class="section-title">Built for the <em>complex.</em><br>Reliable at the <em>critical.</em></h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal"><div class="service-icon">🛢️</div><div class="service-num">01 — Core</div><h3 class="service-title">Oil &amp; Gas Logistics</h3><p class="service-desc">Deep expertise serving Shell SNEPCO, NAOC, Agip and TotalEnergies. We handle OCTG, heavy lift, subsea equipment and time-critical rig supply chains where delay has a direct price tag.</p></div>
+      <div class="service-card reveal d1"><div class="service-icon">🏗️</div><div class="service-num">02 — Projects</div><h3 class="service-title">EPC &amp; Project Cargo</h3><p class="service-desc">Full supply chain management for Engineering, Procurement and Construction megaprojects — from vendor coordination to last-mile delivery across multiple borders and regulatory environments.</p></div>
+      <div class="service-card reveal d2"><div class="service-icon">🛃</div><div class="service-num">03 — Compliance</div><h3 class="service-title">Customs &amp; Clearance</h3><p class="service-desc">Navigating West African customs regimes daily. We eliminate holds, manage temporary import bonds, and keep your project schedule intact with our on-the-ground agents.</p></div>
+      <div class="service-card reveal d1"><div class="service-icon">🚢</div><div class="service-num">04 — Transport</div><h3 class="service-title">Multimodal Freight</h3><p class="service-desc">Air, sea, road and river — we design the optimal mode mix for your cargo. Full FCL, LCL consolidation, charter, and oversize/out-of-gauge project cargo are our daily business.</p></div>
+      <div class="service-card reveal d2"><div class="service-icon">📦</div><div class="service-num">05 — 3PL</div><h3 class="service-title">Warehousing &amp; 3PL</h3><p class="service-desc">Bonded warehouses, inventory management, kitting and distribution — your in-country logistics hub managed to international QHSE standards with full traceability.</p></div>
+      <div class="service-card reveal d3"><div class="service-icon">📡</div><div class="service-num">06 — Technology</div><h3 class="service-title">Supply Chain Visibility</h3><p class="service-desc">Real-time tracking, KPI reporting and our proprietary CLEAR ERP platform give you full visibility from purchase order through customs clearance to final delivery confirmation.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients-section" id="clients">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">// Trusted By</div>
+      <h2 class="section-title">The world's biggest <em>energy majors</em><br>trust us with their supply chains</h2>
+    </div>
+    <div class="clients-logos">
+      <div class="client-card reveal"><div class="client-logo-text">SNEPCO</div><div class="client-sector">Shell Nigeria · Deep Water</div></div>
+      <div class="client-card reveal d1"><div class="client-logo-text">NAOC</div><div class="client-sector">Nigerian Agip Oil Company</div></div>
+      <div class="client-card reveal d2"><div class="client-logo-text">AGIP</div><div class="client-sector">ENI Group · West Africa</div></div>
+      <div class="client-card reveal d3"><div class="client-logo-text">TOTAL</div><div class="client-sector">TotalEnergies · Multi-country</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section" id="team">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">// Our People</div>
+      <h2 class="section-title">Logistics runs on <em>people.</em><br>Here are <em>ours.</em></h2>
+    </div>
+    <div class="human-grid">
+      <div class="human-card reveal">
+        <div class="human-quote">"</div>
+        <p class="human-text">Teamwork is the ability to work together toward a common vision — the fuel that allows common people to attain uncommon results. That's what drives us every day on the field.</p>
+        <div class="human-person"><div class="human-avatar">RS</div><div><div class="human-name">Rokhaya Sall</div><div class="human-role">Expeditor · LSCM Senegal 🇸🇳</div></div></div>
+      </div>
+      <div class="human-card reveal d1">
+        <div class="human-quote">"</div>
+        <p class="human-text">In Mauritania, you don't have time for photos when there's cargo to move. Every shipment is a promise to the client — and we don't break promises on the dock.</p>
+        <div class="human-person"><div class="human-avatar">AH</div><div><div class="human-name">Ahmed Hamoud</div><div class="human-role">Coordinateur Expéditions · Mauritanie 🇲🇷</div></div></div>
+      </div>
+      <div class="human-card reveal d2">
+        <div class="human-quote">"</div>
+        <p class="human-text">The answer to Africa's logistics challenges is somewhere in Africa itself. LSCM was built on this conviction — local teams, local knowledge, delivered to global standards.</p>
+        <div class="human-person"><div class="human-avatar">MD</div><div><div class="human-name">Maâdiou Diallo</div><div class="human-role">Founder &amp; CEO · LSCM Ltd</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINKEDIN -->
+<section class="linkedin-section">
+  <div class="section-wrap">
+    <div class="linkedin-inner">
+      <div class="li-feed reveal">
+        <div class="li-post">
+          <div class="li-post-header">
+            <div class="li-avatar">L</div>
+            <div class="li-poster">LSCM Ltd</div>
+            <div class="li-time">Recent</div>
+          </div>
+          <p class="li-post-text">Fort de presque 20 ans d'expérience dans l'exploitation de gaz, LSCM vous partage les secrets de la logistique du GNL — un carburant qui va jouer un rôle clé dans l'approvisionnement énergétique mondial.</p>
+          <div class="li-post-tag">📖 Article · LNG Logistics</div>
+        </div>
+        <div class="li-post">
+          <div class="li-post-header">
+            <div class="li-avatar">L</div>
+            <div class="li-poster">LSCM Ltd</div>
+            <div class="li-time">Recent</div>
+          </div>
+          <p class="li-post-text">La phase 2 du champ de Baleine 🇨🇮 devrait atteindre 50 000 barils/jour. LSCM suit de près les opportunités logistiques de ce projet majeur au large de la Côte d'Ivoire.</p>
+          <div class="li-post-tag">🛢️ Field Update · Ivory Coast</div>
+        </div>
+        <div class="li-post">
+          <div class="li-post-header">
+            <div class="li-avatar">L</div>
+            <div class="li-poster">LSCM Ltd</div>
+            <div class="li-time">Recent</div>
+          </div>
+          <p class="li-post-text">Supply chain visibility is the ability to track goods throughout the chain. With 20+ years on the ground, we've seen firsthand how real-time visibility cuts costs and prevents critical failures.</p>
+          <div class="li-post-tag">💡 Insight · Supply Chain Intelligence</div>
+        </div>
+      </div>
+      <div class="linkedin-copy reveal d2">
+        <div class="section-tag">// Stay Connected</div>
+        <h2 class="linkedin-heading">We share what we <em>know</em> — not just what we <em>sell.</em></h2>
+        <p class="linkedin-para">On LinkedIn, our team publishes real field-level insights: LNG logistics breakdowns, energy sector developments across West Africa, team dispatches from Mauritania to Seoul. Follow for content written by people who live this work every day.</p>
+        <a href="https://www.linkedin.com/company/lcsm-logistic/" target="_blank" class="btn-primary">Follow LSCM on LinkedIn ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="section-wrap">
+    <div class="cta-banner reveal">
+      <div class="cta-text">
+        <div class="cta-eyebrow">Ready to move?</div>
+        <h2 class="cta-heading">Complex logistics.<br>Clear solutions.</h2>
+      </div>
+      <div class="cta-actions">
+        <a href="mailto:contact@lscmltd.com" class="btn-dark">Get in Touch</a>
+        <a href="https://www.linkedin.com/company/lcsm-logistic/" target="_blank" class="btn-outline-dark">LinkedIn ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="section-wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo"><div class="logo-mark">LC</div><span class="logo-text">LSC<span>M</span></span></div>
+        <div class="footer-tagline">From Planning Till Last Mile</div>
+        <p class="footer-desc">LSCM Ltd is a 5PL supply chain management company specialising in large-scale EPC and energy sector logistics across West Africa, the Middle East and beyond.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Oil &amp; Gas Logistics</a></li>
+          <li><a href="#">EPC Project Cargo</a></li>
+          <li><a href="#">Customs Clearance</a></li>
+          <li><a href="#">Multimodal Freight</a></li>
+          <li><a href="#">3PL Warehousing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Presence</h4>
+        <ul>
+          <li><a href="#">Nigeria 🇳🇬</a></li>
+          <li><a href="#">Senegal 🇸🇳</a></li>
+          <li><a href="#">Mauritania 🇲🇷</a></li>
+          <li><a href="#">Ivory Coast 🇨🇮</a></li>
+          <li><a href="#">Dubai UAE 🇦🇪</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:contact@lscmltd.com">contact@lscmltd.com</a></li>
+          <li><a href="tel:+2348031923528">+234 803 192 3528</a></li>
+          <li><a href="#">19 Benghazi St, Wuse Zone 4<br>Abuja, Nigeria</a></li>
+          <li><a href="https://www.linkedin.com/company/lcsm-logistic/" target="_blank">LinkedIn ↗</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 LSCM Ltd. All rights reserved. · lscmgroup.com</span>
+      <a href="https://www.linkedin.com/company/lcsm-logistic/" target="_blank" class="footer-li">in &nbsp;Follow on LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 5 + 'px';
+    cursor.style.top = my - 5 + 'px';
+  });
+  (function animRing() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx - 18 + 'px'; ring.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animRing);
+  })();
+  document.querySelectorAll('a, button, .service-card, .country-card, .client-card, .human-card, .li-post').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; ring.style.transform = 'scale(1.5)'; ring.style.borderColor = 'rgba(245,168,0,0.8)'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; ring.style.borderColor = 'rgba(245,168,0,0.45)'; });
+  });
+
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Counters
+  const cObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '+';
+      let cur = 0;
+      const step = target / 90;
+      const t = setInterval(() => {
+        cur += step;
+        if (cur >= target) { cur = target; clearInterval(t); }
+        el.textContent = Math.round(cur) + suffix;
+      }, 16);
+      cObs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-number').forEach(el => cObs.observe(el));
+
+  // Video fallback
+  const video = document.getElementById('heroVideo');
+  if (video) {
+    video.play().catch(() => {
+      video.closest('.hero-video-wrap').style.display = 'none';
+    });
+  }
+</script>
+</body>
+</html>
