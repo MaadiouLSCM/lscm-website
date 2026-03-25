@@ -352,6 +352,9 @@
     .cta-banner { flex-direction: column; text-align: center; padding: 3.5rem 3rem; }
     .cta-actions { justify-content: center; }
     .stats-section,.presence-section,.services-section,.clients-section,.team-section,.linkedin-section,.cta-section,footer { padding-left: 2rem; padding-right: 2rem; }
+    .iso-section,.rfc-section { padding-left: 2rem; padding-right: 2rem; }
+    .iso-section [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+    #rfcForm [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
   }
   @media (max-width: 640px) {
     .services-grid,.human-grid { grid-template-columns: 1fr; }
@@ -378,6 +381,7 @@
     <li><a href="#presence">Presence</a></li>
     <li><a href="#clients">Clients</a></li>
     <li><a href="#team">Team</a></li>
+    <li><a href="#quote" style="color:var(--gold);">Get a Quote</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="https://www.linkedin.com/company/lcsm-logistic/" target="_blank" class="nav-cta">LinkedIn ↗</a>
@@ -407,6 +411,7 @@
     </p>
     <div class="hero-actions">
       <a href="#services" class="btn-primary">Our Expertise</a>
+      <a href="#quote" class="btn-primary" style="background:var(--gold);color:#000;margin-left:1rem;">Get a Quote →</a>
       <a href="https://www.linkedin.com/company/lcsm-logistic/" target="_blank" class="btn-ghost">Follow on LinkedIn ↗</a>
     </div>
   </div>
@@ -546,6 +551,90 @@
   </div>
 </section>
 
+<!-- ISO CERTIFICATION -->
+<section class="iso-section" style="padding:5rem;background:var(--bg);">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">// Certified Quality</div>
+      <h2 class="section-title">ISO 9001:2015 <em>Certified</em></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;max-width:900px;margin:0 auto;">
+      <div class="reveal" style="background:var(--surface);border:1px solid var(--gold-border);border-radius:16px;padding:2.5rem;text-align:center;">
+        <div style="font-size:3rem;margin-bottom:1rem;">🏅</div>
+        <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:var(--gold);margin-bottom:0.5rem;">ISO 9001:2015</div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);letter-spacing:0.05em;">Certificate FR100678-1</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:0.8rem;color:var(--muted);margin-top:0.3rem;">Bureau Veritas · COFRAC Accreditation</div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--gold);margin-top:1rem;padding:0.5rem 1rem;background:var(--gold-dim);border-radius:8px;display:inline-block;">Valid: Mar 2026 → Jan 2029</div>
+      </div>
+      <div class="reveal d1" style="font-family:'DM Sans',sans-serif;font-size:0.92rem;color:var(--text);line-height:1.8;">
+        <p style="margin-bottom:1rem;">Our Quality Management System covers the full scope of our operations: freight forwarding, customs clearance, warehousing, and project cargo management across all 7 countries.</p>
+        <p style="margin-bottom:1rem;">Last Bureau Veritas audit: <strong style="color:var(--gold);">0 major non-conformities</strong>. 13 processes mapped, 39 procedures documented, continuous improvement engine powered by our proprietary CLEAR ERP platform.</p>
+        <p style="font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);">Scope: Logistics & Supply Chain Management — Oil & Gas, EPC, Mining sectors</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REQUEST FOR COLLECTION -->
+<section class="rfc-section" id="quote" style="padding:5rem;background:var(--surface);">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">// Get a Quote</div>
+      <h2 class="section-title">Request for <em>Collection</em></h2>
+    </div>
+    <div id="rfcForm" class="reveal" style="max-width:720px;margin:0 auto;background:var(--bg);border:1px solid var(--gold-border);border-radius:16px;padding:2.5rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div style="display:flex;flex-direction:column;gap:0.3rem;">
+          <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Company *</label>
+          <input id="rfc_company" type="text" required placeholder="Your company name" style="background:var(--surface2);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem;">
+          <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Contact Name *</label>
+          <input id="rfc_name" type="text" required placeholder="Full name" style="background:var(--surface2);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem;">
+          <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Email *</label>
+          <input id="rfc_email" type="email" required placeholder="you@company.com" style="background:var(--surface2);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem;">
+          <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Phone</label>
+          <input id="rfc_phone" type="tel" placeholder="+234 xxx xxx xxxx" style="background:var(--surface2);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem;">
+          <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Origin *</label>
+          <input id="rfc_origin" type="text" required placeholder="City, Country" style="background:var(--surface2);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem;">
+          <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Destination *</label>
+          <input id="rfc_dest" type="text" required placeholder="City, Country" style="background:var(--surface2);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem;">
+          <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Transport Mode</label>
+          <select id="rfc_mode" style="background:var(--surface2);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;">
+            <option value="">Select mode...</option>
+            <option value="SEA">Sea Freight</option>
+            <option value="AIR">Air Freight</option>
+            <option value="ROAD">Road Freight</option>
+            <option value="MULTIMODAL">Multimodal</option>
+          </select>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem;">
+          <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Requested Date</label>
+          <input id="rfc_date" type="date" style="background:var(--surface2);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.3rem;margin-top:1rem;">
+        <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;">Cargo Description &amp; Special Requirements</label>
+        <textarea id="rfc_cargo" rows="3" placeholder="Describe your cargo — type, weight, dimensions, any hazardous or oversized items..." style="background:var(--surface2);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;resize:vertical;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'"></textarea>
+      </div>
+      <div style="margin-top:1.5rem;display:flex;align-items:center;gap:1rem;">
+        <button onclick="submitRFC()" class="btn-primary" id="rfcBtn" style="cursor:pointer;border:none;padding:0.85rem 2.5rem;font-size:0.9rem;">Submit Request</button>
+        <div id="rfcStatus" style="font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--muted);"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- LINKEDIN -->
 <section class="linkedin-section">
   <div class="section-wrap">
@@ -598,8 +687,8 @@
         <h2 class="cta-heading">Complex logistics.<br>Clear solutions.</h2>
       </div>
       <div class="cta-actions">
-        <a href="mailto:contact@lscmltd.com" class="btn-dark">Get in Touch</a>
-        <a href="https://www.linkedin.com/company/lcsm-logistic/" target="_blank" class="btn-outline-dark">LinkedIn ↗</a>
+        <a href="#quote" class="btn-dark">Request a Quote</a>
+        <a href="mailto:contact@lscmltd.com" class="btn-outline-dark">Email Us</a>
       </div>
     </div>
   </div>
@@ -708,6 +797,61 @@
       video.closest('.hero-video-wrap').style.display = 'none';
     });
   }
+
+  // RFC Form Submission
+  async function submitRFC() {
+    const btn = document.getElementById('rfcBtn');
+    const status = document.getElementById('rfcStatus');
+    const company = document.getElementById('rfc_company').value.trim();
+    const name = document.getElementById('rfc_name').value.trim();
+    const email = document.getElementById('rfc_email').value.trim();
+    const origin = document.getElementById('rfc_origin').value.trim();
+    const dest = document.getElementById('rfc_dest').value.trim();
+
+    if (!company || !name || !email || !origin || !dest) {
+      status.style.color = '#F87171';
+      status.textContent = 'Please fill all required fields (*)';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+    status.style.color = 'var(--muted)';
+    status.textContent = '';
+
+    try {
+      const res = await fetch('https://friendly-achievement-production.up.railway.app/api/public/rfc', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          companyName: company,
+          contactName: name,
+          contactEmail: email,
+          contactPhone: document.getElementById('rfc_phone').value.trim(),
+          origin: origin,
+          destination: dest,
+          transportMode: document.getElementById('rfc_mode').value || undefined,
+          cargoDescription: document.getElementById('rfc_cargo').value.trim() || undefined,
+          requestedDate: document.getElementById('rfc_date').value || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        status.style.color = '#34D399';
+        status.textContent = '✓ ' + (data.rfcRef || 'RFC') + ' — Quote within 48h. Check your email.';
+        btn.textContent = '✓ Submitted';
+        btn.style.background = '#059669';
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch (e) {
+      status.style.color = '#F87171';
+      status.textContent = 'Error: ' + e.message;
+      btn.disabled = false;
+      btn.textContent = 'Submit Request';
+    }
+  }
+  window.submitRFC = submitRFC;
 </script>
 </body>
 </html>
