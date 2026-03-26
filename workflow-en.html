@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LSCM — End-to-End Workflow</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#07080C;color:#e0e0e0;height:100vh;overflow:hidden;position:relative}
+.grid{position:fixed;inset:0;opacity:.02;pointer-events:none;background-image:linear-gradient(#F5A80055 1px,transparent 1px),linear-gradient(90deg,#F5A80055 1px,transparent 1px);background-size:100px 100px}
+.header{position:absolute;top:0;left:0;right:0;padding:14px 28px;display:flex;justify-content:space-between;align-items:center;z-index:20}
+.logo{color:#F5A800;font-weight:800;font-size:13px;letter-spacing:3px}
+.btn{padding:8px 20px;border-radius:8px;border:none;background:#F5A800;color:#000;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit}
+.dots{position:absolute;top:56px;left:0;right:0;display:flex;justify-content:center;gap:4px;z-index:20}
+.dot{height:6px;border-radius:3px;transition:all .3s ease}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10;transition:opacity .5s ease;padding:20px}
+.scene-icon{font-size:80px;margin-bottom:20px;animation:iconFloat 3s ease infinite}
+.scene-sub{font-size:12px;font-weight:700;letter-spacing:3px;margin-bottom:8px}
+.scene-name{font-size:min(42px,7vw);font-weight:900;text-align:center;max-width:800px;margin-bottom:20px}
+.scene-caption{font-size:min(20px,4vw);line-height:1.7;text-align:center;max-width:700px;color:#ccc}
+.scene-count{margin-top:30px;font-size:12px;color:#555}
+.gl-badge{margin-bottom:16px;font-size:11px;font-weight:700;color:#EF4444;background:#EF444422;border:1px solid #EF444433;padding:4px 14px;border-radius:20px;display:inline-block}
+.progress{position:absolute;bottom:0;left:0;right:0;height:4px;background:#ffffff08;z-index:20}
+.progress-fill{height:4px;transition:width .5s ease}
+.main-name{color:#EF4444;text-shadow:0 0 40px rgba(239,68,68,.4)}
+@keyframes iconFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .5s ease both}
+.fade-in-d1{animation:fadeIn .5s ease .2s both}
+.fade-in-d2{animation:fadeIn .5s ease .4s both}
+.fade-in-d3{animation:fadeIn .5s ease .6s both}
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<div class="header">
+  <span class="logo">LSCM Ltd</span>
+  <button class="btn" id="playBtn" onclick="startPlay()">▶ Play (2 min)</button>
+</div>
+<div class="dots" id="dots"></div>
+<div class="scene" id="scene"></div>
+<div class="progress"><div class="progress-fill" id="progressBar"></div></div>
+
+<script>
+const SCENES=[
+{icon:"📋",name:"Request for Collection",sub:"PROCUREMENT",color:"#3B82F6",caption:"Every journey starts with a client request. CLEAR creates the job, identifies the origin country, and maps the entire route ahead.",bg:"0A1628"},
+{icon:"📊",name:"SAP Data Import",sub:"PROCUREMENT",color:"#3B82F6",caption:"Purchase order lines flow in from SAP. Every single item gets a unique QR code — its digital passport for the entire supply chain.",bg:"0A1628"},
+{icon:"🚚",name:"Worldwide Pickup",sub:"COLLECTION",color:"#8B5CF6",caption:"Our agents collect from supplier sites across the globe. Europe, United States, China, India, UAE — we're there. Every item scanned.",bg:"12082A"},
+{icon:"📑",name:"Export Declaration",sub:"ORIGIN CUSTOMS",color:"#8B5CF6",caption:"Export requirements vary by country. EUR.1 for Europe. AES/EEI for the US. CIQ for China. Our brokers handle each one.",bg:"12082A",gl:true},
+{icon:"🌍",name:"Origin to Hub",sub:"GLOBAL TRANSIT",color:"#6366F1",caption:"From any origin to our European hub. Sea freight, air cargo, or road transport. Every corridor has its own customs procedures.",bg:"0E0A28"},
+{icon:"📦",name:"Hub Receiving",sub:"WMS — LSCM HUB",color:"#F59E0B",caption:"Items from all corners of the world converge at our hub. QR scan validates each one. Bonded and cleared goods separated automatically.",bg:"1A1408"},
+{icon:"🗄️",name:"Storage & Inventory",sub:"WMS — LSCM HUB",color:"#F59E0B",caption:"Smart zone assignment by category and customs status. Continuous cycle counts. FIFO enforcement. Replenishment alerts.",bg:"1A1408"},
+{icon:"🧩",name:"Multi-Origin Consolidation",sub:"WMS — LSCM HUB",color:"#F59E0B",caption:"POs from Europe, US, and Asia are merged into optimal shipments bound for the same destination. AI recommends the best grouping.",bg:"1A1408"},
+{icon:"📐",name:"Pick, Pack & Label",sub:"WMS — LSCM HUB",color:"#F59E0B",caption:"Optimal route picking through the warehouse. Items packed into cartons, caisses, containers. Packing lists broken down by origin.",bg:"1A1408"},
+{icon:"⚡",name:"MAIN GREEN LIGHT",sub:"CRITICAL GATE",color:"#EF4444",caption:"The moment of truth. The entire document kit goes to the receiver for approval. Nothing moves to port without their sign-off.",bg:"1A0808",main:true,gl:true},
+{icon:"🏗️",name:"Load & Dispatch",sub:"WMS — LSCM HUB",color:"#F59E0B",caption:"Every package scanned onto the container. 100% verification. Seal number recorded. Photo proof. Departure to port.",bg:"1A1408"},
+{icon:"⚓",name:"Port of Departure",sub:"EXPORT",color:"#0EA5E9",caption:"Container presented to port customs. All origin certificates submitted. Customs approve. Bill of Lading or Airway Bill issued.",bg:"081420",gl:true},
+{icon:"🚢",name:"International Transit",sub:"SHIPPING",color:"#06B6D4",caption:"Crossing oceans and borders. Sea, air, or road. Real-time tracking follows every mile. Transit customs at each crossing.",bg:"081A1E"},
+{icon:"🛃",name:"Import Customs",sub:"DESTINATION PORT",color:"#14B8A6",caption:"Nigeria requires Form M, PAAR, SON. Mauritania requires BIVAC. Duties calculated with preferential rates for EUR.1 origins.",bg:"081A14",gl:true},
+{icon:"🏭",name:"Destination Warehouse",sub:"WMS — DESTINATION",color:"#EC4899",caption:"Full WMS at destination. QR receiving, condition check, client-specific zone storage. Real-time portal access for clients.",bg:"1A0818"},
+{icon:"🤝",name:"Proof of Delivery",sub:"DELIVERY",color:"#22C55E",caption:"GPS-tracked last mile. Client signs off. POD generated with signature, timestamp, and GPS coordinates. Job delivered.",bg:"081A0E"},
+{icon:"⭐",name:"Close & Rate",sub:"COMPLETE",color:"#22C55E",caption:"Job closed. Cost of Poor Quality calculated. Client rates the service. Full origin-to-destination traceability preserved — forever.",bg:"081A0E"},
+];
+
+let current=-1,playing=false,timer=null;
+const DUR=7060;
+const sceneEl=document.getElementById('scene');
+const dotsEl=document.getElementById('dots');
+const progEl=document.getElementById('progressBar');
+const playBtn=document.getElementById('playBtn');
+
+// Build dots
+SCENES.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='dot';
+  d.style.width='6px';d.style.background='#ffffff15';
+  dotsEl.appendChild(d);
+});
+
+function render(){
+  const dots=dotsEl.children;
+  for(let i=0;i<SCENES.length;i++){
+    dots[i].style.width=i===current?'20px':'6px';
+    dots[i].style.background=i<=current?SCENES[i].color:'#ffffff15';
+  }
+  progEl.style.width=current>=0?((current+1)/SCENES.length*100)+'%':'0%';
+  progEl.style.background=current>=0?SCENES[current].color:'#F5A800';
+
+  if(current<0){
+    sceneEl.innerHTML=`<div style="text-align:center"><div style="font-size:72px;margin-bottom:20px">🌍</div><div style="font-size:min(36px,7vw);font-weight:900;color:#fff">LSCM Global Workflow</div><div style="color:#666;font-size:16px;margin-top:10px">Press Play for the 2-minute cinematic walkthrough</div></div>`;
+    document.body.style.background='#07080C';
+    return;
+  }
+  const s=SCENES[current];
+  document.body.style.background='#'+s.bg;
+  let html='';
+  if(s.gl) html+=`<div class="gl-badge fade-in">${s.main?'⚡ GREEN LIGHT — MANDATORY GATE':'🔒 GREEN LIGHT REQUIRED'}</div>`;
+  html+=`<div class="scene-icon">${s.icon}</div>`;
+  html+=`<div class="scene-sub fade-in-d1" style="color:${s.color}">${s.sub}</div>`;
+  html+=`<div class="scene-name fade-in-d2 ${s.main?'main-name':''}" style="color:${s.main?'#EF4444':'#fff'}">${s.name}</div>`;
+  html+=`<p class="scene-caption fade-in-d3">${s.caption}</p>`;
+  html+=`<div class="scene-count fade-in-d3">${current+1} / ${SCENES.length}</div>`;
+  sceneEl.innerHTML=html;
+}
+
+function advance(){
+  if(current>=SCENES.length-1){playing=false;playBtn.textContent='↻ Replay';return;}
+  current++;
+  render();
+  timer=setTimeout(advance,DUR);
+}
+
+function startPlay(){
+  clearTimeout(timer);
+  current=-1;playing=true;
+  playBtn.textContent='Playing...';
+  setTimeout(()=>{advance();},500);
+}
+
+render();
+</script>
+</body>
+</html>

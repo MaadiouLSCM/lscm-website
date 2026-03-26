@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LSCM — Carte du Parcours</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#07080C;color:#e0e0e0;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.hdr{padding:12px 28px;border-bottom:1px solid #151820;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.logo{color:#F5A800;font-weight:800;font-size:13px;letter-spacing:3px}
+.btn{padding:6px 18px;border-radius:6px;border:none;background:#F5A800;color:#000;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit}
+.prog{height:3px;background:#0D0F14;flex-shrink:0}.prog-fill{height:3px;transition:width .5s ease}
+.main{flex:1;display:flex;overflow:hidden}
+.path{width:420px;overflow-y:auto;padding:30px 20px 100px 50px;position:relative}
+.road{position:absolute;left:56px;top:30px;bottom:100px;width:3px;opacity:.15;border-radius:2px;background:linear-gradient(to bottom,#3B82F6,#8B5CF6,#6366F1,#F59E0B,#0EA5E9,#06B6D4,#14B8A6,#EC4899,#22C55E)}
+.road-fill{position:absolute;left:56px;top:30px;width:3px;border-radius:2px;transition:height .5s ease,background .3s ease}
+.stop{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;transition:all .5s ease}
+.pin{position:relative;flex-shrink:0;width:34px;display:flex;justify-content:center}
+.pin-dot{border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .3s ease}
+.detail{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 50px;border-left:1px solid #151820}
+@keyframes dropIn{from{opacity:0;transform:translateY(-20px) scale(.8)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes ping{0%{transform:scale(1);opacity:1}100%{transform:scale(3);opacity:0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.anim-drop{animation:dropIn .4s ease both}.anim-fade{animation:fadeUp .5s ease both}
+@media(max-width:768px){.path{width:100%;position:absolute;bottom:0;height:35vh;padding:16px 16px 80px 40px;border-top:1px solid #151820;background:#07080C;z-index:10}.road,.road-fill{left:30px}.detail{padding:20px;align-items:flex-start;padding-top:40px}}
+</style>
+</head>
+<body>
+<div class="hdr"><div><span class="logo">LSCM Ltd</span><span style="color:#333;margin:0 12px">•</span><span style="color:#666;font-size:12px">Carte du Parcours</span></div><button class="btn" id="playBtn" onclick="startPlay()">▶ Play</button></div>
+<div class="prog"><div class="prog-fill" id="prog"></div></div>
+<div class="main">
+  <div class="path" id="pathEl"><div class="road"></div><div class="road-fill" id="roadFill"></div><div id="stops"></div></div>
+  <div class="detail" id="detail"></div>
+</div>
+<script>
+const S=[
+{icon:"📋",name:"RFC",loc:"Bureau Client",color:"#3B82F6",caption:"Le voyage commence. Le client soumet une demande de collecte. CLEAR trace la route."},
+{icon:"📊",name:"Import BW",loc:"Système SAP",color:"#3B82F6",caption:"Les données commande arrivent de SAP. Chaque article reçoit un passeport QR."},
+{icon:"🚚",name:"Enlèvement",loc:"Fournisseur — Mondial",color:"#8B5CF6",caption:"Collecte mondiale. Europe. Amériques. Asie. Moyen-Orient. Afrique."},
+{icon:"📑",name:"Déclaration Export",loc:"Pays d'Origine",color:"#8B5CF6",caption:"Douanes export locales. EUR.1, AES/EEI, CIQ — règles par pays. Green Light.",gl:1},
+{icon:"🌍",name:"Transit Origine",loc:"Origine → UE",color:"#6366F1",caption:"T1/T2 intra-UE. ITAR depuis USA. Licences Asie. Pré-acheminement vers hub."},
+{icon:"📦",name:"Réception Hub",loc:"Entrepôt LSCM — UE",color:"#F59E0B",caption:"Toutes origines convergent. QR valide. Stock sous douane vs libre séparé."},
+{icon:"🗄️",name:"Stockage",loc:"Hub LSCM — Zones",color:"#F59E0B",caption:"Zone intelligente. FIFO. Inventaires continus. Alertes réappro. Digest CEO."},
+{icon:"🧩",name:"Consolidation",loc:"Hub LSCM — Planning",color:"#F59E0B",caption:"Multi-origines fusionnées par destination. L'IA optimise. UE + USA + Asie ensemble."},
+{icon:"📐",name:"Picking & Packing",loc:"Hub LSCM — Terrain",color:"#F59E0B",caption:"Route optimale. Cartons, caisses, conteneurs. QR labels. Colisage par origine."},
+{icon:"⚡",name:"GREEN LIGHT PRINCIPAL",loc:"Hub LSCM — Porte",color:"#EF4444",caption:"LE checkpoint critique. Dossier complet au réceptionnaire. Rien ne passe sans accord.",main:1,gl:1},
+{icon:"🏗️",name:"Chargement",loc:"Hub LSCM — Quai",color:"#F59E0B",caption:"Scan 100%. Scellé capturé. Preuve photo. Départ vers le port."},
+{icon:"⚓",name:"Port de Départ",loc:"Port Export",color:"#0EA5E9",caption:"Conteneur au transporteur. Certificats présentés. Douanes approuvent. BL/LTA émis.",gl:1},
+{icon:"🚢",name:"Océan / Ciel",loc:"Eaux Internationales",color:"#06B6D4",caption:"Traversée du monde. Suivi temps réel. Douanes transit à chaque frontière."},
+{icon:"🛃",name:"Douanes Import",loc:"Port Destination",color:"#14B8A6",caption:"Nigeria : Form M, PAAR, SON. Mauritanie : BIVAC. Droits préférentiels EUR.1.",gl:1},
+{icon:"🏭",name:"WMS Destination",loc:"Client / Dépôt",color:"#EC4899",caption:"WMS complet. Réception QR. Zone client. Portail temps réel. Sortie à la demande."},
+{icon:"🤝",name:"Livraison",loc:"Site Client",color:"#22C55E",caption:"Dernier km GPS. Client signe. POD avec signature + horodatage + GPS."},
+{icon:"⭐",name:"Voyage Terminé",loc:"Analytique CLEAR",color:"#22C55E",caption:"Job clôturé. Coûts qualité. Traçabilité complète de l'origine à la porte — à jamais."},
+];
+
+let cur=-1,playing=0,tmr;
+const DUR=7060;
+const stopsEl=document.getElementById('stops');
+const detailEl=document.getElementById('detail');
+const progEl=document.getElementById('prog');
+const roadEl=document.getElementById('roadFill');
+const pathEl=document.getElementById('pathEl');
+
+S.forEach((s,i)=>{
+  stopsEl.innerHTML+=`<div class="stop" id="s${i}" style="opacity:.12"><div class="pin"><div class="pin-dot" id="d${i}" style="width:20px;height:20px;background:#1a1d28;border:2px solid #252836;font-size:12px;margin-top:6px"></div></div><div id="info${i}" style="padding:4px 0;flex:1"><div style="font-size:12px;font-weight:600;color:#444">${s.name}</div><div style="font-size:9px;color:#555;font-weight:600;margin-top:1px">📍 ${s.loc}</div></div></div>`;
+});
+
+function render(){
+  const pct=cur>=0?((cur+1)/S.length*100):0;
+  progEl.style.width=pct+'%';
+  progEl.style.background=cur>=0?S[cur].color:'#F5A800';
+  roadEl.style.height=Math.min(pct*.88,88)+'%';
+  roadEl.style.background=cur>=0?S[cur].color:'#F5A800';
+
+  S.forEach((s,i)=>{
+    const el=document.getElementById('s'+i);
+    const dot=document.getElementById('d'+i);
+    const info=document.getElementById('info'+i);
+    const vis=i<=cur,act=i===cur,done=i<cur;
+    el.style.opacity=vis?1:.12;
+    dot.style.width=act?'32px':done?'24px':'20px';
+    dot.style.height=act?'32px':done?'24px':'20px';
+    dot.style.background=done||act?s.color:'#1a1d28';
+    dot.style.border=`2px solid ${vis?s.color:'#252836'}`;
+    dot.style.fontSize=act?'16px':'12px';
+    dot.style.marginTop=act?'0':done?'4px':'6px';
+    dot.style.boxShadow=act?`0 0 16px ${s.color}44`:'none';
+    dot.innerHTML=vis?s.icon:'';
+    info.style.background=act?(s.main?'#1F0A0A':s.color+'10'):'transparent';
+    info.style.border=act?`1px solid ${s.main?'#EF444444':s.color+'33'}`:'1px solid transparent';
+    info.style.borderRadius='10px';
+    info.style.padding=act?'10px 14px':'4px 0';
+    const nameEl=info.children[0];
+    nameEl.style.fontSize=act?'15px':'12px';
+    nameEl.style.fontWeight=act?'800':'600';
+    nameEl.style.color=s.main&&act?'#EF4444':vis?'#fff':'#444';
+    info.children[1].style.fontSize=act?'10px':'9px';
+    info.children[1].style.color=act?s.color:'#555';
+    // Remove old GL badge
+    const oldBadge=info.querySelector('.gl-b');
+    if(oldBadge)oldBadge.remove();
+    if(act&&s.gl){
+      const b=document.createElement('div');b.className='gl-b';
+      b.style.cssText='margin-top:6px;font-size:8px;font-weight:700;color:#EF4444;background:#EF444418;border:1px solid #EF444433;padding:2px 8px;border-radius:10px;display:inline-block';
+      b.textContent=s.main?'⚡ MAIN GREEN LIGHT':'GREEN LIGHT';
+      info.appendChild(b);
+    }
+  });
+
+  // Scroll active into view
+  if(cur>=0){const el=document.getElementById('s'+cur);el&&el.scrollIntoView({behavior:'smooth',block:'center'});}
+
+  // Detail panel
+  if(cur<0){
+    detailEl.innerHTML='<div style="text-align:center"><div style="font-size:64px;margin-bottom:16px">🗺️</div><div style="font-size:26px;font-weight:900;color:#fff">Le Parcours LSCM</div><div style="color:#555;font-size:14px;margin-top:8px">Appuyez sur Play pour suivre le cargo</div></div>';
+  } else {
+    const s=S[cur];
+    detailEl.innerHTML=`<div class="anim-fade" style="max-width:550px"><div style="font-size:10px;font-weight:700;letter-spacing:2px;color:${s.color};margin-bottom:8px">📍 ${s.loc.toUpperCase()}</div><div style="font-size:48px;margin-bottom:16px">${s.icon}</div><h2 style="font-size:${s.main?34:30}px;font-weight:900;color:${s.main?'#EF4444':'#fff'};margin:0 0 16px;${s.main?'text-shadow:0 0 30px rgba(239,68,68,.3)':''}">${s.name}</h2><p style="font-size:19px;line-height:1.7;color:#ccc;margin:0">${s.caption}</p><div style="margin-top:24px;display:flex;align-items:center;gap:12px"><span style="font-size:11px;color:#444">Étape ${cur+1} / ${S.length}</span><div style="flex:1;height:2px;background:#151820;border-radius:1px"><div style="height:2px;background:${s.color};border-radius:1px;width:${pct}%;transition:width .5s ease"></div></div></div></div>`;
+  }
+}
+
+function advance(){
+  if(cur>=S.length-1){playing=0;document.getElementById('playBtn').textContent='↻ Rejouer';return;}
+  cur++;render();tmr=setTimeout(advance,DUR);
+}
+function startPlay(){clearTimeout(tmr);cur=-1;playing=1;document.getElementById('playBtn').textContent='En cours...';setTimeout(advance,500);}
+render();
+</script>
+</body>
+</html>
