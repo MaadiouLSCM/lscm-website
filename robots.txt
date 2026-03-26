@@ -1,0 +1,32 @@
+# LSCM Ltd — lscmgroup.com
+# SEO + AEO + GEO optimised
+
+User-agent: *
+Allow: /
+
+# AI Crawlers — welcome (GEO strategy)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://lscmgroup.com/sitemap.xml
