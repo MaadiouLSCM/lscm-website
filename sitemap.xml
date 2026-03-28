@@ -40,4 +40,22 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://lscmgroup.com/journey-fr.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://lscmgroup.com/journey-en.html"/>
   </url>
+  <url>
+    <loc>https://lscmgroup.com/services.html</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lscmgroup.com/about.html</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lscmgroup.com/contact.html</loc>
+    <lastmod>2026-03-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
