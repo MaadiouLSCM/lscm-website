@@ -544,6 +544,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
+    <li><a href="#track">Track</a></li>
     <li><a href="workflow-en.html" style="color:var(--gold);">Our Workflow</a></li>
     <li><a href="#presence">Presence</a></li>
     <li><a href="#clients">Clients</a></li>
@@ -739,6 +740,27 @@
         <p style="margin-bottom:1rem;">Last Bureau Veritas audit: <strong style="color:var(--gold);">0 major non-conformities</strong>. 13 processes mapped, 39 procedures documented, continuous improvement engine powered by our proprietary CLEAR ERP platform.</p>
         <p style="font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);">Scope: Logistics & Supply Chain Management — Oil & Gas, EPC, Mining sectors</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK & TRACE -->
+<section id="track" style="padding:5rem;background:var(--bg);">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">// Real-Time Visibility</div>
+      <h2 class="section-title">Track & <em>Trace</em></h2>
+      <p style="color:var(--muted);font-size:0.95rem;margin-top:1rem;max-width:600px;margin-left:auto;margin-right:auto;">Enter your QR code or job reference to get real-time status of your shipment.</p>
+    </div>
+    <div class="reveal" style="max-width:560px;margin:0 auto;background:var(--surface);border:1px solid rgba(200,169,81,0.15);border-radius:16px;padding:2.5rem;text-align:center;">
+      <div style="display:flex;gap:0.8rem;margin-bottom:1.5rem;">
+        <input id="trackInput" type="text" placeholder="QR code or Job Reference (e.g. LSCM-SEA-2026-0008)" style="flex:1;background:var(--bg);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.85rem 1.2rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.92rem;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+        <button onclick="trackShipment()" style="background:var(--gold);color:#000;border:none;border-radius:8px;padding:0.85rem 2rem;font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;white-space:nowrap;">Track</button>
+      </div>
+      <div id="trackResult" style="display:none;text-align:left;background:var(--bg);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.5rem;margin-top:1rem;">
+        <div id="trackContent"></div>
+      </div>
+      <div id="trackError" style="display:none;color:#F87171;font-family:'DM Mono',monospace;font-size:0.82rem;margin-top:1rem;"></div>
     </div>
   </div>
 </section>
@@ -943,6 +965,38 @@
   </div>
 </section>
 
+<!-- CONTACT FORM -->
+<section id="contact-form" style="padding:5rem;background:var(--bg);">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">// Get in Touch</div>
+      <h2 class="section-title">Contact <em>Us</em></h2>
+    </div>
+    <div class="reveal" style="max-width:640px;margin:0 auto;background:var(--surface);border:1px solid rgba(200,169,81,0.15);border-radius:16px;padding:2.5rem;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+        <div style="display:flex;flex-direction:column;gap:0.3rem;">
+          <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;">Name *</label>
+          <input id="ct_name" type="text" required placeholder="Your name" style="background:var(--bg);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem;">
+          <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;">Email *</label>
+          <input id="ct_email" type="email" required placeholder="you@company.com" style="background:var(--bg);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.3rem;margin-bottom:1rem;">
+        <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;">Subject</label>
+        <input id="ct_subject" type="text" placeholder="How can we help?" style="background:var(--bg);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.3rem;margin-bottom:1.5rem;">
+        <label style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);text-transform:uppercase;">Message *</label>
+        <textarea id="ct_message" rows="4" required placeholder="Tell us about your logistics needs..." style="background:var(--bg);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.7rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;resize:vertical;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'"></textarea>
+      </div>
+      <button onclick="submitContact()" id="ctBtn" class="btn-primary" style="cursor:pointer;border:none;padding:0.85rem 2.5rem;font-size:0.9rem;width:100%;">Send Message</button>
+      <div id="ctStatus" style="display:none;margin-top:1rem;font-family:'DM Mono',monospace;font-size:0.82rem;text-align:center;"></div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-section" id="contact">
   <div class="section-wrap">
@@ -1118,6 +1172,69 @@
     }
   }
   window.submitRFC = submitRFC;
+
+  // ── Track & Trace ──
+  const API_BASE = 'https://friendly-achievement-production.up.railway.app/api';
+  async function trackShipment() {
+    const code = document.getElementById('trackInput').value.trim();
+    if (!code) return;
+    const result = document.getElementById('trackResult');
+    const content = document.getElementById('trackContent');
+    const error = document.getElementById('trackError');
+    result.style.display = 'none';
+    error.style.display = 'none';
+    try {
+      const res = await fetch(API_BASE + '/qr/' + encodeURIComponent(code));
+      if (!res.ok) throw new Error('Item not found');
+      const data = await res.json();
+      content.innerHTML = `
+        <div style="margin-bottom:1rem;">
+          <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem;">Status</div>
+          <div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text);">${(data.status || 'UNKNOWN').replace(/_/g, ' ')}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;">
+          ${[['Reference', data.ref || data.qrCode || code], ['Description', data.description || '—'], ['Weight', (data.weightKg || '—') + ' kg'], ['Job', data.job?.ref || '—']].map(([l, v]) =>
+            `<div><div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;">${l}</div><div style="font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--text);">${v}</div></div>`
+          ).join('')}
+        </div>
+        ${data.events?.length ? `<div style="margin-top:1.2rem;border-top:1px solid rgba(255,255,255,0.06);padding-top:1rem;"><div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gold);margin-bottom:0.5rem;">TIMELINE</div>${data.events.slice(0,5).map(e => `<div style="display:flex;gap:0.8rem;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);min-width:80px;">${new Date(e.timestamp || e.createdAt).toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}</span><span style="font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--text);">${e.eventType || e.description || '—'}</span></div>`).join('')}</div>` : ''}
+      `;
+      result.style.display = 'block';
+    } catch (e) {
+      error.textContent = 'No results found for "' + code + '". Please check and try again.';
+      error.style.display = 'block';
+    }
+  }
+  window.trackShipment = trackShipment;
+  document.getElementById('trackInput').addEventListener('keypress', e => { if (e.key === 'Enter') trackShipment(); });
+
+  // ── Contact Form ──
+  async function submitContact() {
+    const name = document.getElementById('ct_name').value.trim();
+    const email = document.getElementById('ct_email').value.trim();
+    const subject = document.getElementById('ct_subject').value.trim();
+    const message = document.getElementById('ct_message').value.trim();
+    const btn = document.getElementById('ctBtn');
+    const status = document.getElementById('ctStatus');
+    if (!name || !email || !message) { status.style.display = 'block'; status.style.color = '#F87171'; status.textContent = 'Please fill required fields'; return; }
+    btn.disabled = true; btn.textContent = 'Sending...';
+    status.style.display = 'block'; status.style.color = 'var(--muted)'; status.textContent = 'Submitting...';
+    try {
+      const res = await fetch(API_BASE + '/public/contact', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        status.style.color = '#34D399'; status.textContent = '✓ Message sent. We will reply within 24 hours.';
+        btn.textContent = '✓ Sent'; btn.style.background = '#059669';
+      } else { throw new Error(data.message || 'Failed'); }
+    } catch (e) {
+      status.style.color = '#F87171'; status.textContent = 'Error: ' + e.message;
+      btn.disabled = false; btn.textContent = 'Send Message';
+    }
+  }
+  window.submitContact = submitContact;
 </script>
 </body>
 </html>
