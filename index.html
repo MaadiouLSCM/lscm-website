@@ -191,7 +191,7 @@
     color: var(--text);
     font-family: 'DM Sans', sans-serif;
     overflow-x: hidden;
-    cursor: none;
+    cursor: auto;
   }
 
   /* ── CURSOR ── */
@@ -211,6 +211,12 @@
     position: fixed; top: 0; left: 0;
     pointer-events: none; z-index: 9998;
     transition: all 0.15s ease;
+  }
+  /* Hide custom cursor on touch devices */
+  @media (hover: none), (pointer: coarse) {
+    .cursor, .cursor-ring { display: none !important; }
+    body { cursor: auto !important; }
+    a, button, .nav-cta, .service-card, .country-card, .client-card, .human-card { cursor: pointer !important; }
   }
 
   /* ── NAV ── */
@@ -239,13 +245,13 @@
   .logo-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--white); letter-spacing: 0.08em; }
   .logo-text span { color: var(--gold); }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.3s; cursor: none; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.3s; cursor: pointer; }
   .nav-links a:hover { color: var(--gold); }
   .nav-cta {
     background: transparent; border: 1px solid var(--gold-border);
     color: var(--gold); padding: 0.55rem 1.4rem;
     font-family: 'DM Sans', sans-serif; font-size: 0.82rem; letter-spacing: 0.06em;
-    cursor: none; transition: all 0.3s; text-decoration: none; text-transform: uppercase;
+    cursor: pointer; transition: all 0.3s; text-decoration: none; text-transform: uppercase;
   }
   .nav-cta:hover { background: var(--gold); color: #000; }
 
@@ -311,7 +317,7 @@
     background: var(--gold); color: #000;
     padding: 0.9rem 2.4rem;
     font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em;
-    text-decoration: none; text-transform: uppercase; transition: all 0.3s; cursor: none;
+    text-decoration: none; text-transform: uppercase; transition: all 0.3s; cursor: pointer;
   }
   .btn-primary:hover { background: #fff; transform: translateY(-2px); }
   .btn-ghost {
@@ -319,7 +325,7 @@
     padding: 0.9rem 2.4rem;
     font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em;
     text-decoration: none; border: 1px solid rgba(255,255,255,0.15); text-transform: uppercase;
-    transition: all 0.3s; cursor: none; backdrop-filter: blur(8px);
+    transition: all 0.3s; cursor: pointer; backdrop-filter: blur(8px);
   }
   .btn-ghost:hover { border-color: var(--gold); color: var(--gold); background: rgba(245,168,0,0.05); }
   .hero-scroll {
@@ -363,7 +369,7 @@
   .stats-heading { font-family: 'Syne', sans-serif; font-size: clamp(2rem,4vw,3rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; }
   .stats-heading em { color: var(--gold); font-style: normal; }
   .stats-para { color: var(--muted); line-height: 1.85; font-size: 0.93rem; margin-bottom: 1.2rem; }
-  .stats-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--gold); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; transition: gap 0.3s; cursor: none; margin-top: 0.8rem; }
+  .stats-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--gold); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; transition: gap 0.3s; cursor: pointer; margin-top: 0.8rem; }
   .stats-link:hover { gap: 1rem; }
   .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--gold-border); }
   .stat-card { background: var(--surface); padding: 2.75rem 2rem; transition: background 0.3s; }
@@ -395,7 +401,7 @@
     display: grid; grid-template-columns: repeat(5, 1fr);
     gap: 1.5px; margin-top: 1.5px; background: var(--gold-border);
   }
-  .country-card { background: var(--bg); padding: 1.75rem 1.25rem; text-align: center; transition: background 0.3s; cursor: none; }
+  .country-card { background: var(--bg); padding: 1.75rem 1.25rem; text-align: center; transition: background 0.3s; cursor: pointer; }
   .country-card:hover { background: var(--surface); }
   .country-flag { font-size: 2.2rem; margin-bottom: 0.6rem; display: block; }
   .country-name { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -411,7 +417,7 @@
   .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; margin-top: 4rem; background: var(--gold-border); }
   .service-card {
     background: var(--surface); padding: 3rem 2.5rem; position: relative; overflow: hidden;
-    transition: background 0.4s; cursor: none;
+    transition: background 0.4s; cursor: pointer; display: block;
   }
   .service-card::after {
     content: ''; position: absolute; bottom: 0; left: 0; right: 0;
@@ -428,7 +434,7 @@
   /* ── CLIENTS ── */
   .clients-section { padding: 7rem 5rem; background: var(--surface); }
   .clients-logos { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5px; margin-top: 4rem; background: var(--gold-border); }
-  .client-card { background: var(--bg); padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; gap: 0.9rem; transition: background 0.3s; cursor: none; }
+  .client-card { background: var(--bg); padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; gap: 0.9rem; transition: background 0.3s; cursor: pointer; }
   .client-card:hover { background: var(--surface2); }
   .client-logo-text { font-family: 'Syne', sans-serif; font-size: 1.65rem; font-weight: 800; letter-spacing: 0.06em; color: rgba(255,255,255,0.12); transition: color 0.3s; }
   .client-card:hover .client-logo-text { color: var(--gold); }
@@ -437,7 +443,7 @@
   /* ── TEAM ── */
   .team-section { padding: 7rem 5rem; }
   .human-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; margin-top: 4rem; background: var(--gold-border); }
-  .human-card { background: var(--surface); padding: 3rem 2.5rem; transition: background 0.3s; cursor: none; }
+  .human-card { background: var(--surface); padding: 3rem 2.5rem; transition: background 0.3s; cursor: pointer; }
   .human-card:hover { background: var(--surface2); }
   .human-quote { font-family: 'Syne', sans-serif; font-size: 3.5rem; color: var(--gold); line-height: 1; margin-bottom: 1.5rem; opacity: 0.35; }
   .human-text { font-size: 0.93rem; line-height: 1.85; color: rgba(232,232,224,0.85); margin-bottom: 2rem; font-style: italic; font-weight: 300; }
@@ -450,7 +456,7 @@
   .linkedin-section { padding: 7rem 5rem; background: var(--surface); }
   .linkedin-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
   .li-feed { display: flex; flex-direction: column; gap: 1px; background: var(--gold-border); }
-  .li-post { background: var(--bg); padding: 1.75rem 1.75rem; border-left: 3px solid transparent; transition: border-color 0.3s, background 0.3s; cursor: none; }
+  .li-post { background: var(--bg); padding: 1.75rem 1.75rem; border-left: 3px solid transparent; transition: border-color 0.3s, background 0.3s; cursor: pointer; }
   .li-post:hover { border-left-color: var(--gold); background: var(--surface2); }
   .li-post-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.9rem; }
   .li-avatar { width: 32px; height: 32px; background: var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.7rem; color: #000; flex-shrink: 0; }
@@ -478,9 +484,9 @@
   .cta-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; color: rgba(0,0,0,0.45); text-transform: uppercase; margin-bottom: 0.6rem; }
   .cta-heading { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem,3.5vw,3rem); font-weight: 800; color: #000; line-height: 1.05; }
   .cta-actions { display: flex; gap: 1rem; flex-shrink: 0; }
-  .btn-dark { background: #000; color: var(--gold); padding: 0.9rem 2.2rem; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase; transition: all 0.3s; cursor: none; }
+  .btn-dark { background: #000; color: var(--gold); padding: 0.9rem 2.2rem; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.06em; text-decoration: none; text-transform: uppercase; transition: all 0.3s; cursor: pointer; }
   .btn-dark:hover { background: #111; transform: translateY(-2px); }
-  .btn-outline-dark { background: transparent; color: #000; padding: 0.9rem 2.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; text-decoration: none; border: 2px solid rgba(0,0,0,0.2); text-transform: uppercase; transition: all 0.3s; cursor: none; }
+  .btn-outline-dark { background: transparent; color: #000; padding: 0.9rem 2.2rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; text-decoration: none; border: 2px solid rgba(0,0,0,0.2); text-transform: uppercase; transition: all 0.3s; cursor: pointer; }
   .btn-outline-dark:hover { border-color: #000; background: rgba(0,0,0,0.06); }
 
   /* ── FOOTER ── */
@@ -492,11 +498,11 @@
   .footer-col h4 { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.5rem; }
   .footer-col ul { list-style: none; }
   .footer-col ul li { margin-bottom: 0.75rem; }
-  .footer-col ul a { font-size: 0.84rem; color: var(--muted); text-decoration: none; transition: color 0.3s; cursor: none; }
+  .footer-col ul a { font-size: 0.84rem; color: var(--muted); text-decoration: none; transition: color 0.3s; cursor: pointer; }
   .footer-col ul a:hover { color: var(--gold); }
   .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; }
   .footer-copy { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--muted); letter-spacing: 0.04em; }
-  .footer-li { display: flex; align-items: center; gap: 0.5rem; color: var(--gold); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--gold-border); padding: 0.4rem 1rem; transition: all 0.3s; cursor: none; }
+  .footer-li { display: flex; align-items: center; gap: 0.5rem; color: var(--gold); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--gold-border); padding: 0.4rem 1rem; transition: all 0.3s; cursor: pointer; }
   .footer-li:hover { background: var(--gold); color: #000; }
 
   /* ── SCROLL REVEAL ── */
@@ -553,9 +559,9 @@
     <li><a href="#quote" style="color:var(--gold);">Get a Quote</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="https://portal.lscmgroup.com/portal" style="color:#2A9D8F; font-weight:600;">Client Portal</a></li>
+    <li><a href="https://portal.lscmgroup.com/client-portal" style="color:#2A9D8F; font-weight:600;">Client Portal</a></li>
   </ul>
-  <a href="https://portal.lscmgroup.com/portal" class="nav-cta" style="background:#2A9D8F; border-color:#2A9D8F;">Client Portal →</a>
+  <a href="https://portal.lscmgroup.com/client-portal" class="nav-cta" style="background:#2A9D8F; border-color:#2A9D8F;">Client Portal →</a>
 </nav>
 
 <!-- HERO WITH VIDEO -->
@@ -752,12 +758,12 @@
       <h2 class="section-title">Built for the <em>complex.</em><br>Reliable at the <em>critical.</em></h2>
     </div>
     <div class="services-grid">
-      <div class="service-card reveal"><div class="service-icon">🛢️</div><div class="service-num">01 — Core</div><h3 class="service-title">Oil &amp; Gas Logistics</h3><p class="service-desc">Deep expertise serving Shell SNEPCO, NAOC, Agip and TotalEnergies. We handle OCTG, heavy lift, subsea equipment and time-critical rig supply chains where delay has a direct price tag.</p></div>
-      <div class="service-card reveal d1"><div class="service-icon">🏗️</div><div class="service-num">02 — Projects</div><h3 class="service-title">EPC &amp; Project Cargo</h3><p class="service-desc">Full supply chain management for Engineering, Procurement and Construction megaprojects — from vendor coordination to last-mile delivery across multiple borders and regulatory environments.</p></div>
-      <div class="service-card reveal d2"><div class="service-icon">🛃</div><div class="service-num">03 — Compliance</div><h3 class="service-title">Customs &amp; Clearance</h3><p class="service-desc">Navigating West African customs regimes daily. We eliminate holds, manage temporary import bonds, and keep your project schedule intact with our on-the-ground agents.</p></div>
-      <div class="service-card reveal d1"><div class="service-icon">🚢</div><div class="service-num">04 — Transport</div><h3 class="service-title">Multimodal Freight</h3><p class="service-desc">Air, sea, road and river — we design the optimal mode mix for your cargo. Full FCL, LCL consolidation, charter, and oversize/out-of-gauge project cargo are our daily business.</p></div>
-      <div class="service-card reveal d2"><div class="service-icon">📦</div><div class="service-num">05 — 3PL</div><h3 class="service-title">Warehousing &amp; 3PL</h3><p class="service-desc">Bonded warehouses, inventory management, kitting and distribution — your in-country logistics hub managed to international QHSE standards with full traceability.</p></div>
-      <div class="service-card reveal d3"><div class="service-icon">📡</div><div class="service-num">06 — Technology</div><h3 class="service-title">Supply Chain Visibility</h3><p class="service-desc">Real-time tracking, KPI reporting and our proprietary CLEAR ERP platform give you full visibility from purchase order through customs clearance to final delivery confirmation.</p></div>
+      <a href="services.html" class="service-card reveal" style="text-decoration:none;color:inherit;"><div class="service-icon">🛢️</div><div class="service-num">01 — Core</div><h3 class="service-title">Oil &amp; Gas Logistics</h3><p class="service-desc">Deep expertise serving Shell SNEPCO, NAOC, Agip and TotalEnergies. We handle OCTG, heavy lift, subsea equipment and time-critical rig supply chains where delay has a direct price tag.</p></a>
+      <a href="services.html" class="service-card reveal d1" style="text-decoration:none;color:inherit;"><div class="service-icon">🏗️</div><div class="service-num">02 — Projects</div><h3 class="service-title">EPC &amp; Project Cargo</h3><p class="service-desc">Full supply chain management for Engineering, Procurement and Construction megaprojects — from vendor coordination to last-mile delivery across multiple borders and regulatory environments.</p></a>
+      <a href="services.html" class="service-card reveal d2" style="text-decoration:none;color:inherit;"><div class="service-icon">🛃</div><div class="service-num">03 — Compliance</div><h3 class="service-title">Customs &amp; Clearance</h3><p class="service-desc">Navigating West African customs regimes daily. We eliminate holds, manage temporary import bonds, and keep your project schedule intact with our on-the-ground agents.</p></a>
+      <a href="services.html" class="service-card reveal d1" style="text-decoration:none;color:inherit;"><div class="service-icon">🚢</div><div class="service-num">04 — Transport</div><h3 class="service-title">Multimodal Freight</h3><p class="service-desc">Air, sea, road and river — we design the optimal mode mix for your cargo. Full FCL, LCL consolidation, charter, and oversize/out-of-gauge project cargo are our daily business.</p></a>
+      <a href="services.html" class="service-card reveal d2" style="text-decoration:none;color:inherit;"><div class="service-icon">📦</div><div class="service-num">05 — 3PL</div><h3 class="service-title">Warehousing &amp; 3PL</h3><p class="service-desc">Bonded warehouses, inventory management, kitting and distribution — your in-country logistics hub managed to international QHSE standards with full traceability.</p></a>
+      <a href="services.html" class="service-card reveal d3" style="text-decoration:none;color:inherit;"><div class="service-icon">📡</div><div class="service-num">06 — Technology</div><h3 class="service-title">Supply Chain Visibility</h3><p class="service-desc">Real-time tracking, KPI reporting and our proprietary CLEAR ERP platform give you full visibility from purchase order through customs clearance to final delivery confirmation.</p></a>
     </div>
   </div>
 </section>
@@ -961,14 +967,14 @@
       <h2 class="section-title">See our <em>end-to-end</em><br>workflow in action</h2>
     </div>
     <div class="reveal d1" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--gold-border);max-width:900px;margin:0 auto;">
-      <a href="workflow-en.html" style="background:var(--surface);padding:3rem 2.5rem;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:1rem;transition:background 0.3s;cursor:none;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
+      <a href="workflow-en.html" style="background:var(--surface);padding:3rem 2.5rem;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:1rem;transition:background 0.3s;cursor:pointer;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
         <div style="font-size:3rem;">🌍</div>
         <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--white);">Cinematic Workflow</div>
         <div style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;">English · 2 min</div>
         <div style="font-size:0.84rem;color:var(--muted);text-align:center;line-height:1.7;">31 steps from RFC to delivery. Global origins. 9 Green Light gates. Auto-playing cinematic presentation.</div>
         <div style="margin-top:0.5rem;font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;color:var(--gold);">Watch Now →</div>
       </a>
-      <a href="workflow-fr.html" style="background:var(--surface);padding:3rem 2.5rem;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:1rem;transition:background 0.3s;cursor:none;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
+      <a href="workflow-fr.html" style="background:var(--surface);padding:3rem 2.5rem;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:1rem;transition:background 0.3s;cursor:pointer;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
         <div style="font-size:3rem;">🇫🇷</div>
         <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--white);">Workflow Cinématique</div>
         <div style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;">Français · 2 min</div>
@@ -977,14 +983,14 @@
       </a>
     </div>
     <div class="reveal d2" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--gold-border);max-width:900px;margin:1.5px auto 0;">
-      <a href="journey-en.html" style="background:var(--surface);padding:2rem 2.5rem;text-decoration:none;display:flex;align-items:center;gap:1.5rem;transition:background 0.3s;cursor:none;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
+      <a href="journey-en.html" style="background:var(--surface);padding:2rem 2.5rem;text-decoration:none;display:flex;align-items:center;gap:1.5rem;transition:background 0.3s;cursor:pointer;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
         <div style="font-size:2rem;">🗺️</div>
         <div>
           <div style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:var(--white);">Journey Map</div>
           <div style="font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--muted);margin-top:0.2rem;">English · Follow the cargo path</div>
         </div>
       </a>
-      <a href="journey-fr.html" style="background:var(--surface);padding:2rem 2.5rem;text-decoration:none;display:flex;align-items:center;gap:1.5rem;transition:background 0.3s;cursor:none;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
+      <a href="journey-fr.html" style="background:var(--surface);padding:2rem 2.5rem;text-decoration:none;display:flex;align-items:center;gap:1.5rem;transition:background 0.3s;cursor:pointer;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">
         <div style="font-size:2rem;">🗺️</div>
         <div>
           <div style="font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:700;color:var(--white);">Carte du Parcours</div>
@@ -1135,7 +1141,7 @@
           <li><a href="tel:+2348031923528">+234 803 192 3528</a></li>
           <li><a href="#">19 Benghazi St, Wuse Zone 4<br>Abuja, Nigeria</a></li>
           <li><a href="https://www.linkedin.com/company/lcsm-logistic/" target="_blank">LinkedIn ↗</a></li>
-          <li><a href="https://portal.lscmgroup.com/portal" style="color:#2A9D8F; font-weight:600;">Client Portal →</a></li>
+          <li><a href="https://portal.lscmgroup.com/client-portal" style="color:#2A9D8F; font-weight:600;">Client Portal →</a></li>
         </ul>
       </div>
     </div>
