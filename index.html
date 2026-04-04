@@ -514,6 +514,8 @@
   @media (max-width: 1100px) {
     nav,nav.scrolled { padding-left: 2rem; padding-right: 2rem; }
     .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex !important; }
     .stats-inner { grid-template-columns: 1fr; gap: 3rem; }
     .services-grid { grid-template-columns: 1fr 1fr; }
     .clients-logos { grid-template-columns: 1fr 1fr; }
@@ -534,6 +536,46 @@
     .footer-top { grid-template-columns: 1fr; }
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .hero-title { font-size: clamp(2.8rem,12vw,5rem); }
+  }
+
+  /* ── HAMBURGER MENU ── */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; z-index: 1002; padding: 8px;
+    background: none; border: none;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--text); border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav {
+    position: fixed; inset: 0; z-index: 1001;
+    background: rgba(10,11,14,0.97);
+    backdrop-filter: blur(20px);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .mobile-nav.open { opacity: 1; pointer-events: auto; }
+  .mobile-nav a {
+    font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 600;
+    color: var(--text); text-decoration: none; text-transform: uppercase;
+    letter-spacing: 0.08em; padding: 0.8rem 2rem;
+    transition: color 0.2s ease;
+  }
+  .mobile-nav a:hover, .mobile-nav a:active { color: var(--gold); }
+  .mobile-nav .mobile-portal {
+    margin-top: 1.5rem; padding: 0.7rem 2rem;
+    background: #2A9D8F; color: #fff;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.9rem; letter-spacing: 0.06em;
+    text-transform: uppercase; border-radius: 4px;
   }
 </style>
 </head>
@@ -559,10 +601,27 @@
     <li><a href="#quote" style="color:var(--gold);">Get a Quote</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="contact.html">Contact</a></li>
-    <li><a href="https://portal.lscmgroup.com/client-portal" style="color:#2A9D8F; font-weight:600;">Client Portal</a></li>
+    <li><a href="/portal" style="color:#2A9D8F; font-weight:600;">Client Portal</a></li>
   </ul>
-  <a href="https://portal.lscmgroup.com/client-portal" class="nav-cta" style="background:#2A9D8F; border-color:#2A9D8F;">Client Portal →</a>
+  <a href="/portal" class="nav-cta" style="background:#2A9D8F; border-color:#2A9D8F;">Client Portal →</a>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE NAV OVERLAY -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="workflow-en.html">Our Workflow</a>
+  <a href="about.html">About</a>
+  <a href="#presence" onclick="closeMobileNav()">Presence</a>
+  <a href="#clients" onclick="closeMobileNav()">Clients</a>
+  <a href="#team" onclick="closeMobileNav()">Team</a>
+  <a href="#quote" onclick="closeMobileNav()" style="color:var(--gold);">Get a Quote</a>
+  <a href="#faq" onclick="closeMobileNav()">FAQ</a>
+  <a href="contact.html">Contact</a>
+  <a href="/portal" class="mobile-portal">Client Portal →</a>
+</div>
 
 <!-- HERO WITH VIDEO -->
 <section class="hero">
@@ -1141,7 +1200,7 @@
           <li><a href="tel:+2348031923528">+234 803 192 3528</a></li>
           <li><a href="#">19 Benghazi St, Wuse Zone 4<br>Abuja, Nigeria</a></li>
           <li><a href="https://www.linkedin.com/company/lcsm-logistic/" target="_blank">LinkedIn ↗</a></li>
-          <li><a href="https://portal.lscmgroup.com/client-portal" style="color:#2A9D8F; font-weight:600;">Client Portal →</a></li>
+          <li><a href="/portal" style="color:#2A9D8F; font-weight:600;">Client Portal →</a></li>
         </ul>
       </div>
     </div>
@@ -1327,6 +1386,21 @@
     }
   }
   window.submitContact = submitContact;
+
+  // ── Hamburger Mobile Nav ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  function closeMobileNav() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  window.closeMobileNav = closeMobileNav;
 </script>
 </body>
 </html>

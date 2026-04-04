@@ -9,6 +9,10 @@
     { "src": "robots.txt", "use": "@vercel/static" },
     { "src": "sitemap.xml", "use": "@vercel/static" }
   ],
+  "redirects": [
+    { "source": "/portal", "destination": "https://lscm-portal.vercel.app", "statusCode": 302 },
+    { "source": "/portal/:path*", "destination": "https://lscm-portal.vercel.app/:path*", "statusCode": 302 }
+  ],
   "headers": [
     {
       "source": "/(.*)",
