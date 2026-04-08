@@ -741,6 +741,8 @@
         <path class="corridor-route" d="M 810 195 Q 620 160 370 225" fill="none" stroke="#06B6D4" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
         <!-- Abidjan (430,330) → Paris (535,65) -->
         <path class="corridor-route" d="M 430 330 Q 420 160 535 65" fill="none" stroke="#EC4899" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+        <!-- Houston (85,155) → Lagos (480,340) — US→NG Air -->
+        <path class="corridor-route" d="M 85 155 Q 250 100 480 340" fill="none" stroke="#FB923C" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
         <!-- Cargo particles along routes -->
         <circle r="3" fill="#F5A800" filter="url(#nodeGlow)"><animateMotion dur="5s" repeatCount="indefinite" path="M 535 65 Q 440 150 480 340"/></circle>
         <circle r="3" fill="#60A5FA" filter="url(#nodeGlow)"><animateMotion dur="6s" repeatCount="indefinite" begin="0.5s" path="M 535 65 Q 400 100 370 225"/></circle>
@@ -748,6 +750,7 @@
         <circle r="3" fill="#a3e635" filter="url(#nodeGlow)"><animateMotion dur="3s" repeatCount="indefinite" begin="0.3s" path="M 350 260 Q 330 280 365 310"/></circle>
         <circle r="3" fill="#06B6D4" filter="url(#nodeGlow)"><animateMotion dur="6.5s" repeatCount="indefinite" begin="1.5s" path="M 810 195 Q 620 160 370 225"/></circle>
         <circle r="3" fill="#EC4899" filter="url(#nodeGlow)"><animateMotion dur="5.8s" repeatCount="indefinite" begin="0.8s" path="M 430 330 Q 420 160 535 65"/></circle>
+        <circle r="3" fill="#FB923C" filter="url(#nodeGlow)"><animateMotion dur="7s" repeatCount="indefinite" begin="2s" path="M 85 155 Q 250 100 480 340"/></circle>
         <!-- City nodes with pulsing rings -->
         <!-- Paris -->
         <circle cx="535" cy="65" r="5" fill="#F5A800" class="city-dot"/>
@@ -784,6 +787,11 @@
         <circle cx="810" cy="195" r="8" fill="none" stroke="#A78BFA" stroke-width="0.8"><animate attributeName="r" values="8;18;8" dur="3s" repeatCount="indefinite" begin="1.3s"/><animate attributeName="opacity" values="0.4;0;0.4" dur="3s" repeatCount="indefinite" begin="1.3s"/></circle>
         <text x="810" y="182" text-anchor="middle" fill="#E8E8E0" font-family="Syne,sans-serif" font-weight="700" font-size="11">Dubai</text>
         <text x="810" y="215" text-anchor="middle" fill="#6B7280" font-size="9">🇦🇪 Middle East</text>
+        <!-- Houston -->
+        <circle cx="85" cy="155" r="5" fill="#FB923C" class="city-dot"/>
+        <circle cx="85" cy="155" r="8" fill="none" stroke="#FB923C" stroke-width="0.8"><animate attributeName="r" values="8;18;8" dur="3s" repeatCount="indefinite" begin="1.5s"/><animate attributeName="opacity" values="0.4;0;0.4" dur="3s" repeatCount="indefinite" begin="1.5s"/></circle>
+        <text x="85" y="142" text-anchor="middle" fill="#E8E8E0" font-family="Syne,sans-serif" font-weight="700" font-size="11">Houston</text>
+        <text x="85" y="175" text-anchor="middle" fill="#6B7280" font-size="9">🇺🇸 Americas</text>
       </svg>
       <div class="corridor-legend">
         <div class="corridor-legend-item"><div class="corridor-legend-line" style="background:#F5A800"></div>EU → Nigeria O&amp;G</div>
@@ -792,6 +800,7 @@
         <div class="corridor-legend-item"><div class="corridor-legend-line" style="background:#a3e635"></div>Regional W. Africa</div>
         <div class="corridor-legend-item"><div class="corridor-legend-line" style="background:#06B6D4"></div>UAE → Mauritania</div>
         <div class="corridor-legend-item"><div class="corridor-legend-line" style="background:#EC4899"></div>Ivory Coast → EU</div>
+        <div class="corridor-legend-item"><div class="corridor-legend-line" style="background:#FB923C"></div>US → Nigeria</div>
       </div>
     </div>
     <div class="country-grid reveal d2">
