@@ -98,7 +98,7 @@
     {"@type": "Service", "position": 3, "name": "Customs Clearance", "description": "Specialist customs brokerage across West African regimes. Temporary import bonds, duty management, and compliance for oil and gas equipment.", "provider": {"@type": "Organization", "name": "LSCM"}, "areaServed": "Nigeria"},
     {"@type": "Service", "position": 4, "name": "Multimodal Freight", "description": "Air, sea, road and river freight with FCL, LCL consolidation, charter, and oversize project cargo solutions.", "provider": {"@type": "Organization", "name": "LSCM"}},
     {"@type": "Service", "position": 5, "name": "3PL Warehousing", "description": "Bonded warehouses, inventory management, kitting and distribution with full traceability to international QHSE standards.", "provider": {"@type": "Organization", "name": "LSCM"}},
-    {"@type": "Service", "position": 6, "name": "Supply Chain Visibility", "description": "Real-time tracking, KPI reporting and proprietary CLEAR ERP platform providing full visibility from purchase order through customs to final delivery.", "provider": {"@type": "Organization", "name": "LSCM"}}
+    {"@type": "Service", "position": 6, "name": "Supply Chain Visibility", "description": "Milestone tracking with the evidence of each step, KPI reporting and proprietary CLEAR ERP platform providing full visibility from purchase order through customs to final delivery.", "provider": {"@type": "Organization", "name": "LSCM"}}
   ]
 }
 </script>
@@ -146,7 +146,7 @@
       "name": "What is LSCM's CLEAR ERP platform?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "CLEAR ERP is LSCM's proprietary supply chain management platform that provides real-time cargo tracking, automated KPI reporting, customs status monitoring, and full visibility from purchase order through customs clearance to final delivery confirmation. It enables clients to track every item via QR codes and receive automated status updates throughout the logistics chain."
+        "text": "CLEAR ERP is LSCM's proprietary supply chain management platform that provides milestone tracking with the evidence of each step, automated KPI reporting, customs status monitoring, and full visibility from purchase order through customs clearance to final delivery confirmation. It enables clients to follow every item, each with its QR code, in the client portal and receive automated status updates throughout the logistics chain."
       }
     },
     {
@@ -834,7 +834,7 @@
       <a href="services.html" class="service-card reveal d2" style="text-decoration:none;color:inherit;"><div class="service-icon">🛃</div><div class="service-num">03 — Compliance</div><h3 class="service-title">Customs &amp; Clearance</h3><p class="service-desc">Navigating West African customs regimes daily. We eliminate holds, manage temporary import bonds, and keep your project schedule intact with our on-the-ground agents.</p></a>
       <a href="services.html" class="service-card reveal d1" style="text-decoration:none;color:inherit;"><div class="service-icon">🚢</div><div class="service-num">04 — Transport</div><h3 class="service-title">Multimodal Freight</h3><p class="service-desc">Air, sea, road and river — we design the optimal mode mix for your cargo. Full FCL, LCL consolidation, charter, and oversize/out-of-gauge project cargo are our daily business.</p></a>
       <a href="services.html" class="service-card reveal d2" style="text-decoration:none;color:inherit;"><div class="service-icon">📦</div><div class="service-num">05 — 3PL</div><h3 class="service-title">Warehousing &amp; 3PL</h3><p class="service-desc">Bonded warehouses, inventory management, kitting and distribution — your in-country logistics hub managed to international QHSE standards with full traceability.</p></a>
-      <a href="services.html" class="service-card reveal d3" style="text-decoration:none;color:inherit;"><div class="service-icon">📡</div><div class="service-num">06 — Technology</div><h3 class="service-title">Supply Chain Visibility</h3><p class="service-desc">Real-time tracking, KPI reporting and our proprietary CLEAR ERP platform give you full visibility from purchase order through customs clearance to final delivery confirmation.</p></a>
+      <a href="services.html" class="service-card reveal d3" style="text-decoration:none;color:inherit;"><div class="service-icon">📡</div><div class="service-num">06 — Technology</div><h3 class="service-title">Supply Chain Visibility</h3><p class="service-desc">Milestone tracking with the evidence of each step, KPI reporting and our proprietary CLEAR ERP platform give you full visibility from purchase order through customs clearance to final delivery confirmation.</p></a>
     </div>
   </div>
 </section>
@@ -906,23 +906,17 @@
   </div>
 </section>
 
-<!-- TRACK & TRACE -->
+<!-- TRACK & TRACE — your shipments are followed in the client portal (no public lookup: a reference alone would show anyone a client's cargo) -->
 <section id="track" style="padding:5rem;background:var(--bg);">
   <div class="section-wrap">
     <div class="section-header reveal">
-      <div class="section-tag">// Real-Time Visibility</div>
+      <div class="section-tag">// Visibility</div>
       <h2 class="section-title">Track & <em>Trace</em></h2>
-      <p style="color:var(--muted);font-size:0.95rem;margin-top:1rem;max-width:600px;margin-left:auto;margin-right:auto;">Enter your QR code or job reference to get real-time status of your shipment.</p>
+      <p style="color:var(--muted);font-size:0.95rem;margin-top:1rem;max-width:600px;margin-left:auto;margin-right:auto;">Your shipments are followed in the LSCM client portal: every milestone with its evidence, your documents, your approvals and your invoices.</p>
     </div>
     <div class="reveal" style="max-width:560px;margin:0 auto;background:var(--surface);border:1px solid rgba(200,169,81,0.15);border-radius:16px;padding:2.5rem;text-align:center;">
-      <div style="display:flex;gap:0.8rem;margin-bottom:1.5rem;">
-        <input id="trackInput" type="text" placeholder="QR code or Job Reference (e.g. LSCM-SEA-2026-0008)" style="flex:1;background:var(--bg);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.85rem 1.2rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.92rem;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='rgba(255,255,255,0.08)'">
-        <button onclick="trackShipment()" style="background:var(--gold);color:#000;border:none;border-radius:8px;padding:0.85rem 2rem;font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;white-space:nowrap;">Track</button>
-      </div>
-      <div id="trackResult" style="display:none;text-align:left;background:var(--bg);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.5rem;margin-top:1rem;">
-        <div id="trackContent"></div>
-      </div>
-      <div id="trackError" style="display:none;color:#F87171;font-family:'DM Mono',monospace;font-size:0.82rem;margin-top:1rem;"></div>
+      <a href="/portal" style="display:inline-block;background:var(--gold);color:#000;border:none;border-radius:8px;padding:0.85rem 2rem;font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;text-decoration:none;">Sign in to the client portal →</a>
+      <p style="color:var(--muted);font-size:0.85rem;line-height:1.7;margin-top:1.2rem;">No access yet? Your LSCM contact opens it for your team — or <a href="/contact" style="color:var(--gold);">write to us</a>.</p>
     </div>
   </div>
 </section>
@@ -1112,7 +1106,7 @@
       <div style="background:var(--surface);padding:2rem 2.5rem;" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <h3 itemprop="name" style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--white);margin-bottom:0.8rem;cursor:pointer;" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">What is LSCM's CLEAR ERP platform? <span style="color:var(--gold);float:right;">+</span></h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text" style="color:var(--muted);font-size:0.88rem;line-height:1.85;">CLEAR ERP is LSCM's proprietary supply chain management platform that provides real-time cargo tracking, automated KPI reporting, customs status monitoring, and full visibility from purchase order through customs clearance to final delivery confirmation. Clients can track every item via QR codes and receive automated status updates throughout the logistics chain.</p>
+          <p itemprop="text" style="color:var(--muted);font-size:0.88rem;line-height:1.85;">CLEAR ERP is LSCM's proprietary supply chain management platform that provides milestone tracking with the evidence of each step, automated KPI reporting, customs status monitoring, and full visibility from purchase order through customs clearance to final delivery confirmation. Clients follow every item, each with its QR code, in the client portal and receive automated status updates throughout the logistics chain.</p>
         </div>
       </div>
 
@@ -1336,40 +1330,7 @@
   }
   window.submitRFC = submitRFC;
 
-  // ── Track & Trace ──
-  const API_BASE = 'https://friendly-achievement-production.up.railway.app/api';
-  async function trackShipment() {
-    const code = document.getElementById('trackInput').value.trim();
-    if (!code) return;
-    const result = document.getElementById('trackResult');
-    const content = document.getElementById('trackContent');
-    const error = document.getElementById('trackError');
-    result.style.display = 'none';
-    error.style.display = 'none';
-    try {
-      const res = await fetch(API_BASE + '/qr/' + encodeURIComponent(code));
-      if (!res.ok) throw new Error('Item not found');
-      const data = await res.json();
-      content.innerHTML = `
-        <div style="margin-bottom:1rem;">
-          <div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem;">Status</div>
-          <div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text);">${(data.status || 'UNKNOWN').replace(/_/g, ' ')}</div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;">
-          ${[['Reference', data.ref || data.qrCode || code], ['Description', data.description || '—'], ['Weight', (data.weightKg || '—') + ' kg'], ['Job', data.job?.ref || '—']].map(([l, v]) =>
-            `<div><div style="font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;">${l}</div><div style="font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--text);">${v}</div></div>`
-          ).join('')}
-        </div>
-        ${data.events?.length ? `<div style="margin-top:1.2rem;border-top:1px solid rgba(255,255,255,0.06);padding-top:1rem;"><div style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--gold);margin-bottom:0.5rem;">TIMELINE</div>${data.events.slice(0,5).map(e => `<div style="display:flex;gap:0.8rem;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);min-width:80px;">${new Date(e.timestamp || e.createdAt).toLocaleDateString('en-GB',{day:'2-digit',month:'short'})}</span><span style="font-family:'DM Sans',sans-serif;font-size:0.82rem;color:var(--text);">${e.eventType || e.description || '—'}</span></div>`).join('')}</div>` : ''}
-      `;
-      result.style.display = 'block';
-    } catch (e) {
-      error.textContent = 'No results found for "' + code + '". Please check and try again.';
-      error.style.display = 'block';
-    }
-  }
-  window.trackShipment = trackShipment;
-  document.getElementById('trackInput').addEventListener('keypress', e => { if (e.key === 'Enter') trackShipment(); });
+  const API_BASE = 'https://friendly-achievement-production.up.railway.app/api'; // CLEAR's API — the contact form below
 
   // ── Contact Form ──
   async function submitContact() {

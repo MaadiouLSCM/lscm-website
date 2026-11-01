@@ -169,8 +169,8 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.8rem;border-
 
   <!-- Stats -->
   <div class="stats-row reveal">
-    <div class="stat"><div class="num" data-target="890">0</div><div class="lbl">API Endpoints</div></div>
-    <div class="stat"><div class="num" data-target="178">0</div><div class="lbl">Data Models</div></div>
+    <div class="stat"><div class="num" data-target="1464">0</div><div class="lbl">API Endpoints</div></div>
+    <div class="stat"><div class="num" data-target="270">0</div><div class="lbl">Data Models</div></div>
     <div class="stat"><div class="num" data-target="7">0</div><div class="lbl">Operational Phases</div></div>
     <div class="stat"><div class="num" data-target="10">0</div><div class="lbl">Countries Connected</div></div>
   </div>
@@ -193,7 +193,7 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.8rem;border-
     <div class="module-card reveal">
       <div class="icon">◉</div>
       <h3>Job Lifecycle Engine</h3>
-      <p>7-phase workflow from RFC receipt through customs, transit, delivery, and closure. Automated status transitions, document generation, and milestone tracking.</p>
+      <p>34 statuses in 7 phases, from RFC receipt through customs, transit, delivery and closure. The steps that need evidence stay locked until it is in; documents generated and every milestone recorded.</p>
       <span class="tech-tag tag-teal">7 PHASES</span>
     </div>
 
@@ -214,7 +214,7 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.8rem;border-
     <div class="module-card reveal">
       <div class="icon">★</div>
       <h3>Customs &amp; HS Classification</h3>
-      <p>AI-powered HS code classification, duty calculation, temporary import bond management, and automated customs declaration generation.</p>
+      <p>AI-assisted HS code classification, duty and VAT rates by country, customs declarations, and a check of the job's own documents against its destination's requirements before clearance.</p>
       <span class="tech-tag tag-gold">AI CLASSIFIER</span>
     </div>
 
@@ -235,7 +235,7 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.8rem;border-
     <div class="module-card reveal">
       <div class="icon">◐</div>
       <h3>QMS &amp; ISO Compliance</h3>
-      <p>Built-in quality management supporting ISO 9001:2015 certification — automated audit trails, non-conformance tracking, CAPA workflows, and scheduled QA audits.</p>
+      <p>Built-in quality management supporting ISO 9001:2015 certification — automated audit trails, non-conformance tracking, CAPA workflows, and CLEAR's own self-check every day, week and month.</p>
       <span class="tech-tag tag-green">ISO 9001</span>
     </div>
 
@@ -252,9 +252,9 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.8rem;border-
     <div class="arch-grid">
       <div class="arch-visual">
         <div class="arch-layer"><div class="dot" style="background:var(--gold)"></div><div class="name">Client Portal</div><div class="tech">React · Vercel</div></div>
-        <div class="arch-layer"><div class="dot" style="background:var(--teal)"></div><div class="name">CLEAR Frontend</div><div class="tech">React 18 · Vite 5</div></div>
-        <div class="arch-layer"><div class="dot" style="background:var(--blue)"></div><div class="name">API Gateway</div><div class="tech">NestJS · 890+ endpoints</div></div>
-        <div class="arch-layer"><div class="dot" style="background:var(--green)"></div><div class="name">Business Logic</div><div class="tech">178 models · 75 modules</div></div>
+        <div class="arch-layer"><div class="dot" style="background:var(--teal)"></div><div class="name">CLEAR Frontend</div><div class="tech">React 18 · Vite 6</div></div>
+        <div class="arch-layer"><div class="dot" style="background:var(--blue)"></div><div class="name">API Gateway</div><div class="tech">NestJS · 1,464 endpoints</div></div>
+        <div class="arch-layer"><div class="dot" style="background:var(--green)"></div><div class="name">Business Logic</div><div class="tech">270 models · 95 modules</div></div>
         <div class="arch-layer"><div class="dot" style="background:var(--purple)"></div><div class="name">AI Layer</div><div class="tech">Claude Sonnet · HS Classifier</div></div>
         <div class="arch-layer"><div class="dot" style="background:var(--orange)"></div><div class="name">Data &amp; Comms</div><div class="tech">PostgreSQL · SMTP · WhatsApp</div></div>
       </div>
@@ -262,11 +262,11 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.8rem;border-
         <h2>Built for African<br>Energy Logistics</h2>
         <p>CLEAR is not an off-the-shelf product adapted for logistics. It was designed from the ground up for the specific challenges of freight forwarding across West Africa — multiple customs regimes, unreliable infrastructure, complex documentation requirements, and the demanding standards of energy majors.</p>
         <ul>
-          <li>Full offline resilience for field operations</li>
-          <li>Multi-currency with XOF, MRU, NGN, USD, EUR</li>
-          <li>Bilingual (English + French) across all surfaces</li>
+          <li>Hub scans kept offline and sent when the network returns</li>
+          <li>Amounts kept in their own currency — USD, EUR, NGN, XOF, MRU</li>
+          <li>CLEAR Mobile in five languages — French, English, Arabic, Spanish, Portuguese; CLEAR and the client portal in English</li>
           <li>Real-time SSE event streaming to all connected clients</li>
-          <li>50 automated cron jobs for compliance and monitoring</li>
+          <li>84 scheduled tasks for compliance and monitoring — a missed run is said</li>
           <li>Complete audit trail for ISO 9001 certification</li>
         </ul>
       </div>
