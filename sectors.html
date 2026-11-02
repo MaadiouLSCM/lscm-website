@@ -123,6 +123,8 @@ nav ul a:hover{color:var(--gold)}
 .cta-bar a{background:var(--gold);color:#000;padding:.9rem 2.5rem;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;display:inline-block}
 footer{background:var(--surface);border-top:1px solid rgba(255,255,255,0.04);padding:2rem 3rem;text-align:center;color:var(--muted);font-size:.8rem}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1002;padding:8px;background:none;border:none}.hamburger span{display:block;width:24px;height:2px;background:#E8E8E0;border-radius:2px;transition:all .3s}.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}.hamburger.open span:nth-child(2){opacity:0}.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}.mobile-nav{position:fixed;inset:0;z-index:1001;background:rgba(10,11,14,.97);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;opacity:0;pointer-events:none;transition:opacity .3s}.mobile-nav.open{opacity:1;pointer-events:auto}.mobile-nav a{font-family:Syne,sans-serif;font-size:1.3rem;font-weight:600;color:#E8E8E0;text-decoration:none;text-transform:uppercase;letter-spacing:.08em;padding:.8rem 2rem;transition:color .2s}.mobile-nav a:hover{color:#F5A800}@media(max-width:768px){nav{padding:.8rem 1.5rem}nav ul{display:none}.hamburger{display:flex!important}.hero-mini h1{font-size:1.8rem}.wrap{padding:0 1.2rem}.sector-grid{grid-template-columns:1fr}.corridor-grid{grid-template-columns:1fr 1fr}}
+/* S302 follow-up (CLEAR B121, the CEO's « ok », 2 Nov 2026): on a phone the corridors one under the other — two did not fit 320 px */
+@media(max-width:400px){.corridor-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
