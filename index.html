@@ -530,6 +530,8 @@
     .iso-section,.rfc-section { padding-left: 2rem; padding-right: 2rem; }
     .iso-section [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
     #rfcForm [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+    /* S302 (CLEAR B114): these sections' own 5rem (written on them) beat the rule above — 2rem like the others */
+    #track,#workflow,#faq,#contact-form,.iso-section,.rfc-section { padding-left: 2rem !important; padding-right: 2rem !important; }
   }
   @media (max-width: 640px) {
     .services-grid,.human-grid { grid-template-columns: 1fr; }
@@ -537,6 +539,15 @@
     .footer-top { grid-template-columns: 1fr; }
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .hero-title { font-size: clamp(2.8rem,12vw,5rem); }
+    /* S302 (CLEAR B114): on a phone nothing wider than the screen — the page was 539 px for a 390 px screen */
+    .clients-logos { grid-template-columns: 1fr; }
+    #workflow,#contact-form { padding: 3.5rem 1.25rem !important; }
+    #workflow [style*="grid-template-columns:1fr 1fr"],#contact-form [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+    #workflow a { padding: 2rem 1.25rem !important; }
+    #contact-form [style*="max-width:640px"] { padding: 1.5rem !important; }
+    .hero-content { padding: 0 1.25rem; }
+    .hero-badge { white-space: normal; text-align: center; }
+    .hero-scroll { display: none; } /* the « Scroll » hint lay over the LinkedIn button */
   }
 
   /* ── HAMBURGER MENU ── */
