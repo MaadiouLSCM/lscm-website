@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<title>Track a shipment — LSCM</title>
+<meta name="description" content="Track an LSCM shipment with one reference — the LSCM job reference or your PO number. Its milestones, as CLEAR records them.">
+<link rel="canonical" href="https://lscmgroup.com/track">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0B0E;--surface:#111318;--surface2:#181C23;--gold:#F5A800;--gold-dim:rgba(245,168,0,0.1);--gold-border:rgba(245,168,0,0.22);--text:#E8E8E0;--muted:#6B7280;--teal:#2A9D8F}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7}
+a{color:var(--gold);text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 2rem}
+nav{position:fixed;top:0;width:100%;z-index:100;padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(10,11,14,0.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.04)}
+.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem}
+.logo-mark{background:var(--gold);color:#000;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem}
+nav ul{display:flex;gap:2rem;list-style:none}
+nav ul a{color:var(--muted);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;transition:color .3s}
+nav ul a:hover{color:var(--gold)}
+.hero-mini{padding:8rem 0 3rem;text-align:center}
+.hero-mini h1{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--gold);margin-bottom:.5rem}
+.hero-mini p{color:var(--muted);font-size:1.05rem}
+h2{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;color:var(--gold);margin:3rem 0 1.5rem;padding-bottom:.5rem;border-bottom:1px solid var(--gold-border)}
+.offices-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:3rem}
+.office-card{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:2rem;transition:border-color .3s}
+.office-card:hover{border-color:var(--gold-border)}
+.office-flag{font-size:2rem;margin-bottom:.5rem}
+.office-card h3{font-family:'Syne',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:.5rem}
+.office-card .role{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--gold);margin-bottom:.8rem;text-transform:uppercase;letter-spacing:.08em}
+.office-info{font-size:.88rem;color:var(--muted)}
+.office-info a{color:var(--gold)}
+.office-info div{margin-bottom:.35rem}
+.contact-main{background:var(--surface);border:1px solid var(--gold-border);border-radius:16px;padding:3rem;text-align:center;margin:2rem 0 4rem}
+.contact-main h3{font-family:'Syne',sans-serif;font-size:1.3rem;color:var(--text);margin-bottom:1rem}
+.contact-links{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem}
+.contact-links a{background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:8px;padding:.7rem 1.5rem;font-family:'DM Mono',monospace;font-size:.88rem;color:var(--gold);transition:background .3s}
+.contact-links a:hover{background:var(--gold);color:#000}
+footer{background:var(--surface);border-top:1px solid rgba(255,255,255,0.04);padding:2rem 3rem;text-align:center;color:var(--muted);font-size:.8rem}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1002;padding:8px;background:none;border:none}.hamburger span{display:block;width:24px;height:2px;background:#E8E8E0;border-radius:2px;transition:all .3s}.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}.hamburger.open span:nth-child(2){opacity:0}.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}.mobile-nav{position:fixed;inset:0;z-index:1001;background:rgba(10,11,14,.97);backdrop-filter:blur(20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;opacity:0;pointer-events:none;transition:opacity .3s}.mobile-nav.open{opacity:1;pointer-events:auto}.mobile-nav a{font-family:Syne,sans-serif;font-size:1.3rem;font-weight:600;color:#E8E8E0;text-decoration:none;text-transform:uppercase;letter-spacing:.08em;padding:.8rem 2rem;transition:color .2s}.mobile-nav a:hover{color:#F5A800}@media(max-width:768px){nav{padding:.8rem 1.5rem}nav ul{display:none}.hamburger{display:flex!important}.hero-mini h1{font-size:1.8rem}.wrap{padding:0 1.2rem}.offices-grid{grid-template-columns:1fr}}
+
+.track-box{background:var(--surface);border:1px solid var(--gold-border);border-radius:16px;padding:2rem;margin:0 auto 2rem;max-width:720px}
+.track-form{display:flex;gap:.75rem;flex-wrap:wrap}
+.track-form input{flex:1 1 260px;min-width:0;background:var(--surface2);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:.8rem 1rem;color:var(--text);font-family:'DM Mono',monospace;font-size:.95rem;outline:none}
+.track-form input:focus{border-color:var(--gold)}
+.track-form button{background:var(--gold);color:#000;border:none;border-radius:8px;padding:.8rem 1.6rem;font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer}
+.track-form button:disabled{opacity:.6;cursor:wait}
+.track-note{color:var(--muted);font-size:.82rem;margin-top:.8rem}
+.track-msg{margin-top:1.2rem;font-size:.92rem}
+.shipment{background:var(--surface);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.6rem;margin:0 auto 1.2rem;max-width:720px}
+.shipment .ref{font-family:'DM Mono',monospace;color:var(--gold);font-size:.9rem;letter-spacing:.04em}
+.shipment .now{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:700;color:var(--text);margin:.3rem 0 .1rem;overflow-wrap:anywhere}
+.shipment .since{color:var(--muted);font-size:.85rem}
+.shipment ol{list-style:none;margin-top:1rem;border-left:2px solid var(--gold-border);padding-left:1rem}
+.shipment li{position:relative;padding:.35rem 0;font-size:.9rem;overflow-wrap:anywhere}
+.shipment li::before{content:'';position:absolute;left:-1.42rem;top:.85rem;width:9px;height:9px;border-radius:50%;background:var(--muted)}
+.shipment li:first-child::before{background:var(--gold)}
+.shipment li time{font-family:'DM Mono',monospace;color:var(--muted);font-size:.78rem;margin-right:.6rem}
+@media (max-width:640px){.hero-mini h1{font-size:2rem}.track-box,.shipment{padding:1.2rem}.wrap{padding:0 1rem}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo"><div class="logo-mark">LC</div>LSCM</a>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/services.html">Services</a></li>
+    <li><a href="/sectors.html">Sectors</a></li>
+    <li><a href="/technology">Technology</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+    <li><a href="/track" style="color:var(--gold)">Track</a></li>
+    <li><a href="/portal" style="color:var(--teal)">Client Portal</a></li>
+  </ul>
+<button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button></nav>
+<div class="mobile-nav" id="mobileNav"><a href="/">Home</a><a href="/services">Services</a><a href="/technology">Technology</a><a href="/about">About</a><a href="/sectors">Sectors</a><a href="/contact">Contact</a><a href="/track">Track</a><a href="/portal" style="color:#2A9D8F;">Client Portal</a></div>
+
+
+<div class="wrap">
+  <div class="hero-mini">
+    <h1>Track a shipment</h1>
+    <p>One reference is enough: the LSCM job reference, or your PO number.</p>
+  </div>
+  <div class="track-box">
+    <form class="track-form" id="trackForm" autocomplete="off">
+      <input id="trackRef" name="ref" type="text" maxlength="64" placeholder="LSCM-SEA-2026-0201 or 4500012345" aria-label="LSCM job reference or PO number" required>
+      <button id="trackBtn" type="submit">Track</button>
+    </form>
+    <p class="track-note">The shipment's milestones only, as CLEAR records them — for its documents, approvals and details, <a href="/portal">sign in to the client portal</a>.</p>
+    <div class="track-msg" id="trackMsg" role="status" aria-live="polite"></div>
+  </div>
+  <div id="trackResults"></div>
+</div>
+
+<footer>© 2026 LSCM Ltd. All rights reserved. · <a href="/">lscmgroup.com</a></footer>
+<script>const hb=document.getElementById("hamburger"),mn=document.getElementById("mobileNav");hb.addEventListener("click",()=>{const o=hb.classList.toggle("open");mn.classList.toggle("open");document.body.style.overflow=o?"hidden":"";});mn.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{hb.classList.remove("open");mn.classList.remove("open");document.body.style.overflow="";}));</script>
+<script>
+// S292 (CLEAR B112): one reference — the LSCM job reference or the PO number — and the shipment's milestones only.
+const API_BASE = 'https://friendly-achievement-production.up.railway.app/api';
+const form = document.getElementById('trackForm'), input = document.getElementById('trackRef'), btn = document.getElementById('trackBtn');
+const msg = document.getElementById('trackMsg'), out = document.getElementById('trackResults');
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const utc = (d) => (d ? new Date(d).toISOString().slice(0, 16).replace('T', ' ') + ' UTC' : '');
+const say = (t, color) => { msg.textContent = t; msg.style.color = color || 'var(--muted)'; };
+async function track(ref) {
+  out.innerHTML = ''; say('Looking it up…'); btn.disabled = true;
+  try {
+    const r = await fetch(API_BASE + '/public/track?ref=' + encodeURIComponent(ref));
+    if (r.status === 404) return say('No shipment found for this reference. Check it — or ask your LSCM contact.', '#E8E8E0');
+    if (r.status === 400) return say('Give the LSCM job reference or the PO number (4 to 64 letters or digits).', '#E8E8E0');
+    if (r.status === 429) return say('Too many look-ups from here — try again in a minute.', '#E8E8E0');
+    if (!r.ok) return say('Tracking is not available right now — try again shortly.', '#E8E8E0');
+    const b = await r.json();
+    say(b.shipments.length > 1 ? b.shipments.length + ' shipments for this reference' : '');
+    out.innerHTML = b.shipments.map((s) => '<div class="shipment"><div class="ref">' + esc(s.ref) + '</div><div class="now">' + esc(s.now) + '</div>'
+      + (s.since ? '<div class="since">since ' + esc(utc(s.since)) + '</div>' : '')
+      + (s.milestones.length ? '<ol>' + s.milestones.map((m) => '<li><time>' + esc(utc(m.at)) + '</time>' + esc(m.label) + '</li>').join('') + '</ol>' : '') + '</div>').join('');
+  } catch (e) { say('Tracking is not available right now — try again shortly.', '#E8E8E0'); }
+  finally { btn.disabled = false; }
+}
+form.addEventListener('submit', (e) => { e.preventDefault(); const ref = input.value.trim(); if (!ref) return; history.replaceState(null, '', '?ref=' + encodeURIComponent(ref)); track(ref); });
+const q = new URLSearchParams(location.search).get('ref'); if (q) { input.value = q; track(q.trim()); }
+</script>
+</body>
+</html>

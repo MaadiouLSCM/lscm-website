@@ -906,17 +906,20 @@
   </div>
 </section>
 
-<!-- TRACK & TRACE — your shipments are followed in the client portal (no public lookup: a reference alone would show anyone a client's cargo) -->
+<!-- TRACK & TRACE — S292 (CLEAR B112): one reference — the LSCM job reference or the PO number — and the shipment's milestones only (/track); the details in the client portal -->
 <section id="track" style="padding:5rem;background:var(--bg);">
   <div class="section-wrap">
     <div class="section-header reveal">
       <div class="section-tag">// Visibility</div>
       <h2 class="section-title">Track & <em>Trace</em></h2>
-      <p style="color:var(--muted);font-size:0.95rem;margin-top:1rem;max-width:600px;margin-left:auto;margin-right:auto;">Your shipments are followed in the LSCM client portal: every milestone with its evidence, your documents, your approvals and your invoices.</p>
+      <p style="color:var(--muted);font-size:0.95rem;margin-top:1rem;max-width:600px;margin-left:auto;margin-right:auto;">One reference is enough: the LSCM job reference, or your PO number — and you see its milestones as CLEAR records them.</p>
     </div>
     <div class="reveal" style="max-width:560px;margin:0 auto;background:var(--surface);border:1px solid rgba(200,169,81,0.15);border-radius:16px;padding:2.5rem;text-align:center;">
-      <a href="/portal" style="display:inline-block;background:var(--gold);color:#000;border:none;border-radius:8px;padding:0.85rem 2rem;font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;text-decoration:none;">Sign in to the client portal →</a>
-      <p style="color:var(--muted);font-size:0.85rem;line-height:1.7;margin-top:1.2rem;">No access yet? Your LSCM contact opens it for your team — or <a href="/contact" style="color:var(--gold);">write to us</a>.</p>
+      <form action="/track" method="get" style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+        <input name="ref" type="text" maxlength="64" required placeholder="LSCM job reference or PO number" aria-label="LSCM job reference or PO number" style="flex:1 1 220px;min-width:0;background:var(--surface2);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:0.8rem 1rem;color:var(--text);font-family:'DM Mono',monospace;font-size:0.9rem;outline:none;">
+        <button type="submit" style="background:var(--gold);color:#000;border:none;border-radius:8px;padding:0.8rem 1.6rem;font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;cursor:pointer;">Track →</button>
+      </form>
+      <p style="color:var(--muted);font-size:0.85rem;line-height:1.7;margin-top:1.2rem;">For the documents, approvals and invoices: <a href="/portal" style="color:var(--gold);">sign in to the client portal</a> — your LSCM contact opens it for your team.</p>
     </div>
   </div>
 </section>
